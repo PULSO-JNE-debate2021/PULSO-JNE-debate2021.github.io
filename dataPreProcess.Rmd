@@ -1,0 +1,86 @@
+
+carga
+```{r}
+library(rio)
+library(readr)
+library(stringi)
+library(magrittr)
+library(sf)
+library(classInt)
+
+regdata=import("IndicadoresdeCENSO2007-2017.xlsx")
+
+regdata[,-1]=as.data.frame(apply(regdata[,-1],2,function(x)gsub('\\s+', '',x)))
+
+regdata[,-1]=lapply(regdata[,-1],as.numeric)
+
+names(regdata)=gsub("-","",names(regdata))
+names(regdata)=gsub("\\s\\D/|\\)","",names(regdata))
+names(regdata)=gsub(" \\(|\\s","_",names(regdata))
+names(regdata)=stri_trans_general(names(regdata),id = "Latin-ASCII")
+
+base=c( "Departamento", "Poblacion_2007" ,"Poblacion_2017","Viviendas_particulares_2007" ,"Viviendas_particulares_2017","Total_hogares_2007" ,"Total_hogares_2017")
+
+pobMal=c("Sin_seguro_de_salud_2007", "Sin_seguro_de_salud_2017", "Tasa_de_empleo_informal_2008","Tasa_de_empleo_informal_2019", "Analfabetismo_2007", "Analfabetismo_2017")
+
+vivMal=c("Agua_Red_publica_2007", "Agua_Red_publica_2017", "Alumbrado_electrico_por_red_publica_2007", "Alumbrado_electrico_por_red_publica_2017", "Vivienda_alquilada_2007", "Vivienda_alquilada_2017")
+
+
+hogMal=c("Hogares_sin_TIC_2007","Hogares_sin_TIC_2017", "Hogares_con_ninos_que_no_asisten_a_la_escuela_2007", "Hogares_con_ninos_que_no_asisten_a_la_escuela_2017", "Hogares_con_viviendas_con_hacinamiento_2007", "Hogares_con_viviendas_con_hacinamiento_2017")
+
+varSel=c(base,pobMal,vivMal,hogMal)
+
+
+dataJNE=regdata[1:26,varSel]
+dataJNE=dataJNE[dataJNE$Departamento!="Provincia de Lima",]
+dataJNE$Departamento=stri_trans_general(dataJNE$Departamento,id = "Latin-ASCII")%>%toupper()
+dataJNE[dataJNE$Departamento=="LIMA","Departamento"]="LIMA METROPOLITANA"
+dataJNE[dataJNE$Departamento=="REGION LIMA","Departamento"]="LIMA REGION"
+
+
+dataJNE[,c("Agua_Red_publica_2007", "Agua_Red_publica_2017", "Alumbrado_electrico_por_red_publica_2007", "Alumbrado_electrico_por_red_publica_2017")]=lapply(dataJNE[,c("Agua_Red_publica_2007", "Agua_Red_publica_2017", "Alumbrado_electrico_por_red_publica_2007", "Alumbrado_electrico_por_red_publica_2017")],function(x) 100-x)
+
+names(dataJNE)[grep("Agua_Red|Alumbrado_el",names(dataJNE))]=paste0("Sin_",names(dataJNE)[grep("Agua_Red|Alumbrado_el",names(dataJNE))],sep = "")
+
+dataJNE$pob_sin_seguro_salud=dataJNE$Sin_seguro_de_salud_2017-dataJNE$Sin_seguro_de_salud_2007
+dataJNE$pob_empleo_informal=dataJNE$Tasa_de_empleo_informal_2019-dataJNE$Tasa_de_empleo_informal_2008
+dataJNE$pob_analfabetismo=dataJNE$Analfabetismo_2017-dataJNE$Analfabetismo_2007
+
+dataJNE$viv_sin_agua=dataJNE$Sin_Agua_Red_publica_2017-dataJNE$Sin_Agua_Red_publica_2007
+dataJNE$viv_sin_electricidad=dataJNE$Sin_Alumbrado_electrico_por_red_publica_2017-dataJNE$Sin_Alumbrado_electrico_por_red_publica_2007
+dataJNE$viv_alquilada=dataJNE$Vivienda_alquilada_2017-dataJNE$Vivienda_alquilada_2007
+
+dataJNE$hog_sin_TIC=dataJNE$Hogares_sin_TIC_2017-dataJNE$Hogares_sin_TIC_2007
+dataJNE$hog_ninos_sin_escuela=dataJNE$Hogares_con_ninos_que_no_asisten_a_la_escuela_2017-dataJNE$Hogares_con_ninos_que_no_asisten_a_la_escuela_2007
+dataJNE$hog_hacinamiento=dataJNE$Hogares_con_viviendas_con_hacinamiento_2017-dataJNE$Hogares_con_viviendas_con_hacinamiento_2007
+
+
+
+```
+
+
+```{r}
+library(classInt)
+
+varsToCat=grep("pob_|viv_|hog_",names(dataJNE))
+
+pob=dataJNE[,c(1,varsToCat)]
+
+
+for (var in names(pob[,-1])){
+    cortes=c(-100,-25,-10,0,10,25,100)
+    etis=c("Mejora mucho","Mejora","Mejora poco","Empeora poco","Empeora","Empeora Mucho")
+    pob[,var]=cut(pob[,var], breaks = cortes,
+                  labels = etis,
+                  include.lowest = T,
+                  ordered_result = T)
+}
+
+names(pob)[-1]=paste(names(pob)[-1],"cat",sep="_")
+
+dataJNE=cbind(dataJNE,pob[,-1])
+saveRDS(dataJNE,file="dataJNE.rds")
+```
+
+
+

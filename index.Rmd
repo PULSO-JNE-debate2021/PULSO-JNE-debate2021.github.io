@@ -1,0 +1,78 @@
+---
+title: "Untitled"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(sf)
+library(ggplot2)
+debatable=readRDS("dataJNE.rds")
+debamap=read_sf("regiones.shp")
+debamap=merge(debamap,debatable,
+              by.x='DEPARTAMEN',by.y="Departamento")
+
+base=ggplot(data=debamap) + theme_void()  + scale_fill_brewer(palette = "YlOrBr",drop=FALSE)
+```
+
+```{r plotsCode, warning=FALSE, message=FALSE}
+seguro=base + geom_sf(aes(fill=pob_sin_seguro_salud_cat))
+seguro=seguro + labs(fill="Cambio",
+                     title = "Aseguramiento en Salud - Luego de 10 años")
+
+informal=base + geom_sf(aes(fill=pob_empleo_informal_cat))
+informal=informal + labs(fill="Cambio",title = "Empleo Informal  - Luego de 10 años")
+
+analfabetismo=base + geom_sf(aes(fill=pob_analfabetismo_cat)) 
+analfabetismo=analfabetismo + labs(fill="Cambio",title = "Analfabetismo Luego de 10 años")
+
+
+```
+
+
+
+
+**CAMBIO EN VARIABLES CRITICAS DE LA POBLACION** 
+=====================================
+
+
+Column {data-width=180}
+-------------------------------------
+    
+### **NOTAS**
+
+* Categorias:
+
+
+* Datos utilizados: 
+
+
+* Periodo: 
+
+
+
+Column {.tabset}
+-------------------------------------
+
+### **sobre POBLACION SIN SEGURO DE SALUD**
+
+```{r}
+seguro
+```
+
+
+### **Sobre TASA DE EMPLEO INFORMAL**
+
+```{r}
+informal
+```
+
+### **Sobre ANALFABETISMO**
+
+```{r}
+analfabetismo
+```
+
