@@ -60,7 +60,29 @@ dataJNE$hog_hacinamiento=dataJNE$Hogares_con_viviendas_con_hacinamiento_2017-dat
 
 
 ```{r}
-library(classInt)
+PeruActual=dataJNE[,c(1,grep("_201",names(dataJNE)))]
+PeruActual=PeruActual[,-c(2:4)]
+
+
+for (var in names(PeruActual[,-1])){
+    cortes=c(0,10,25,50,100)
+    etis=c("Aceptable","Preocupante","Alarmante","Crítico")
+    PeruActual[,var]=cut(PeruActual[,var], breaks = cortes,
+                  labels = etis,
+                  include.lowest = T,
+                  ordered_result = T)
+}
+
+names(PeruActual)[-1]=paste(names(PeruActual)[-1],"cat",sep="_")
+
+dataJNE=cbind(dataJNE,PeruActual[,-1])
+
+
+```
+
+
+```{r}
+
 
 varsToCat=grep("pob_|viv_|hog_",names(dataJNE))
 
@@ -69,7 +91,7 @@ pob=dataJNE[,c(1,varsToCat)]
 
 for (var in names(pob[,-1])){
     cortes=c(-100,-25,-10,0,10,25,100)
-    etis=c("Mejora mucho","Mejora","Mejora poco","Empeora poco","Empeora","Empeora Mucho")
+    etis=c("Mejora más de 25%","Mejora de 10 a 25%","Mejora hasta 10%","Empeora hasta 10%","Empeora de 10 a 25%","Empeora más de 25%")
     pob[,var]=cut(pob[,var], breaks = cortes,
                   labels = etis,
                   include.lowest = T,
@@ -81,6 +103,8 @@ names(pob)[-1]=paste(names(pob)[-1],"cat",sep="_")
 dataJNE=cbind(dataJNE,pob[,-1])
 saveRDS(dataJNE,file="dataJNE.rds")
 ```
+
+
 
 
 
