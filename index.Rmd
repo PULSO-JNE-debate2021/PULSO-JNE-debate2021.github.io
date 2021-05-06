@@ -1,5 +1,5 @@
 ---
-title: "Untitled"
+title: "PERU: DIEZ AÑOS DESPUES"
 output: 
   flexdashboard::flex_dashboard:
     orientation: columns
@@ -27,8 +27,25 @@ informal=base + geom_sf(aes(fill=pob_empleo_informal_cat))
 informal=informal + labs(fill="Cambio",title = "Empleo Informal  - Luego de 10 años")
 
 analfabetismo=base + geom_sf(aes(fill=pob_analfabetismo_cat)) 
-analfabetismo=analfabetismo + labs(fill="Cambio",title = "Analfabetismo Luego de 10 años")
+analfabetismo=analfabetismo + labs(fill="Cambio",title = "Analfabetismo - Luego de 10 años")
 
+agua=base + geom_sf(aes(fill=viv_sin_agua_cat)) 
+agua=agua + labs(fill="Cambio",title = "Agua en las viviendas - Luego de 10 años")
+
+elec=base + geom_sf(aes(fill=viv_sin_electricidad_cat)) 
+elec=elec + labs(fill="Cambio",title = "Electricidad en las viviendas - Luego de 10 años")
+
+alqui=base + geom_sf(aes(fill=viv_alquilada_cat)) 
+alqui=alqui + labs(fill="Cambio",title = "Propiedad de la Vivienda - Luego de 10 años")
+
+tic=base + geom_sf(aes(fill=hog_sin_TIC_cat)) 
+tic=tic + labs(fill="Cambio",title = "Tecnologías de Comunicación- Luego de 10 años")
+
+ninos=base + geom_sf(aes(fill=hog_ninos_sin_escuela_cat)) 
+ninos=ninos + labs(fill="Cambio",title = "Presencia de niños que no van a la escuela - Luego de 10 años")
+
+haci=base + geom_sf(aes(fill=hog_hacinamiento_cat)) 
+haci=haci + labs(fill="Cambio",title = "Hacinamiento - Luego de 10 años")
 
 ```
 
@@ -76,3 +93,87 @@ informal
 analfabetismo
 ```
 
+
+
+**CAMBIO EN VARIABLES CRITICAS DE VIVIENDA** 
+=====================================
+
+
+Column {data-width=180}
+-------------------------------------
+    
+### **NOTAS**
+
+* Categorias:
+
+
+* Datos utilizados: 
+
+
+* Periodo: 
+
+
+
+Column {.tabset}
+-------------------------------------
+
+### **sobre POBLACION SIN SEGURO DE SALUD**
+
+```{r}
+agua
+```
+
+
+### **Sobre TASA DE EMPLEO INFORMAL**
+
+```{r}
+elec
+```
+
+### **Sobre ANALFABETISMO**
+
+```{r}
+alqui
+```
+
+
+**CAMBIO EN VARIABLES CRITICAS DE HOGARES** 
+=====================================
+
+
+Column {data-width=180}
+-------------------------------------
+    
+### **NOTAS**
+
+* Categorias:
+
+
+* Datos utilizados: 
+
+
+* Periodo: 
+
+
+
+Column {.tabset}
+-------------------------------------
+
+### **sobre POBLACION SIN SEGURO DE SALUD**
+
+```{r}
+tic
+```
+
+
+### **Sobre TASA DE EMPLEO INFORMAL**
+
+```{r}
+ninos
+```
+
+### **Sobre ANALFABETISMO**
+
+```{r}
+haci
+```
