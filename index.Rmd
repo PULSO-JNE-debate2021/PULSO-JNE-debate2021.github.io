@@ -43,8 +43,7 @@ segu2017=base + geom_sf(aes(fill=Sin_seguro_de_salud_2017_cat))+
                                       data=debamap[debamap$Sin_seguro_de_salud_2017_cat=="Alarmante"|debamap$Sin_seguro_de_salud_2017_cat=="Crítico",],
                                       size = 2,
                                       fontface = 'bold')
-segu2017=segu2017 + labs(fill="Porcentaje (%)",
-                     title = "Población sin seguro de salud", subtitle = "2017")
+segu2017=segu2017 + labs(fill="Porcentaje (%)")
 
 info2017=base + geom_sf(aes(fill=Tasa_de_empleo_informal_2019_cat))+
                       geom_text_repel(mapping = aes(coords_x, coords_y, label = DEPARTAMEN),
@@ -132,33 +131,32 @@ haci2017=haci2017 + labs(fill="Porcentaje (%)",
 
 ```{r plotsCode_CAMBIOS, warning=FALSE, message=FALSE}
 segu=base + geom_sf(aes(fill=pob_sin_seguro_salud_cat))
-segu=segu + labs(fill ="Puntos porcent.",
-                 title="Población sin seguro de salud",subtitle = "Avances entre 2007- 2017")
+segu=segu + labs(fill ="Cambio en %")
 
 info=base + geom_sf(aes(fill=pob_empleo_informal_cat))
-info=info + labs(fill="Puntos porcent.",
+info=info + labs(fill="Cambio en %",
                  title = "Tasa de empleo informal",subtitle = "Avances entre 2008- 2019")
 
 analf=base + geom_sf(aes(fill=pob_analfabetismo_cat)) 
-analf=analf + labs(fill="Puntos porcent.",title = "Tasa de analfabetismo",subtitle = "Avances entre 2007- 2017")
+analf=analf + labs(fill="Cambio en %",title = "Tasa de analfabetismo",subtitle = "Avances entre 2007- 2017")
 
 agua=base + geom_sf(aes(fill=viv_sin_agua_cat)) 
-agua=agua + labs(fill="Puntos porcent.",title = "Hogares sin acceso a agua",subtitle = "Avances entre 2007- 2017")
+agua=agua + labs(fill="Cambio en %",title = "Hogares sin acceso a agua",subtitle = "Avances entre 2007- 2017")
 
 elec=base + geom_sf(aes(fill=viv_sin_electricidad_cat)) 
-elec=elec + labs(fill="Puntos porcent.",title = "Hogares sin acceso a alumbrado eléctrico",subtitle = "Avances entre 2007- 2017")
+elec=elec + labs(fill="Cambio en %",title = "Hogares sin acceso a alumbrado eléctrico",subtitle = "Avances entre 2007- 2017")
 
 alqui=base + geom_sf(aes(fill=viv_alquilada_cat)) 
-alqui=alqui + labs(fill="Puntos porcent.",title = "Viviendas alquiladas",subtitle = "Avances entre 2007- 2017")
+alqui=alqui + labs(fill="Cambio en %",title = "Viviendas alquiladas",subtitle = "Avances entre 2007- 2017")
 
 tic=base + geom_sf(aes(fill=hog_sin_TIC_cat)) 
-tic=tic + labs(fill="Puntos porcent.",title = "Hogares sin TIC",subtitle = "Avances entre 2007- 2017")
+tic=tic + labs(fill="Cambio en %",title = "Hogares sin TIC",subtitle = "Avances entre 2007- 2017")
 
 servhig=base + geom_sf(aes(fill=hog_sin_servhigie_cat)) 
-servhig=servhig + labs(fill="Puntos porcent.",title = "Hogar sin servicios higiénicos",subtitle = "Avances entre 2007- 2017")
+servhig=servhig + labs(fill="Cambio en %",title = "Hogar sin servicios higiénicos",subtitle = "Avances entre 2007- 2017")
  
 haci=base + geom_sf(aes(fill=hog_hacinamiento_cat)) 
-haci=haci + labs(fill="Puntos porcent.",title = "Hogares en hacinamiento",subtitle = "Avances entre 2007- 2017")
+haci=haci + labs(fill="Cambio en %",title = "Hogares en hacinamiento",subtitle = "Avances entre 2007- 2017")
 
 ```
 
@@ -207,11 +205,26 @@ Column {.tabset}
 ### **Cobertura de los servicios de salud**
 
 ```{r, fig.height = 5, fig.width = 8, fig.align = "center"}
+
+titulo="Población sin seguro de salud"
+abajo="Elaborado por PULSO PUCP para la DNEF-JNE"
 ggarrange(
   segu2017, NULL,  segu,
   nrow = 1, widths = c(1, 0.1, 1),
-  labels = c("", "", "")
-  )
+  labels = c("2017","" ,"Avances entre 2007- 2017"),hjust = 0,
+  label.x=c(0.4,0,0.3), font.label = list(size = 14, 
+                                        face = "bold", 
+                                        color ="blue")
+  )%>%annotate_figure(top = text_grob(titulo,
+                                      color = "blue", 
+                                      face = "bold",
+                                      size = 20),
+                      bottom = text_grob(abajo, 
+                                         color = "blue",
+                                         hjust = 1, 
+                                         x = 1, face = "bold", size = 14)
+               #,fig.lab = "Figure 1", fig.lab.face = "bold"
+)
 ```
 
 
