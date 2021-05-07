@@ -194,12 +194,12 @@ Column {data-width=180}
 
 * Avances: Es el resultado de la diferencia entre la cifra del indel 2017, o el mayor año, y la cifra del 2007, o el menor año, en puntos porcentuales. 
 
-  + < -25: La diferencia supera los 25 puntos porcentuales. Supone una importante mejora.
-  + -10 a -25: La diferencia oscila entre los 10 y 25 puntos porcentuales.Supone una mejora intermedia. 
-  + -10 a 0: La diferencia oscila entre los 0 y 10 puntos porcentuales.Supone ningún cambio o una leve mejora. 
-  + 0 a 10: La diferencia implica un leve retroceso de entre 1 y 10 puntos porcentuales. 
-  + 10 a 10: La diferencia implica un retroceso intermedio de entre 1 y 10 puntos porcentuales.
-  + > 25: La diferencia implica un importante retroceso, de - al menos - 25 puntos porcentuales.
+  + **< -25**: La diferencia supera los 25 puntos porcentuales. Supone una importante mejora.
+  + **-10 a -25**: La diferencia oscila entre los 10 y 25 puntos porcentuales.Supone una mejora intermedia. 
+  + **-10 a 0**: La diferencia oscila entre los 0 y 10 puntos porcentuales.Supone ningún cambio o una leve mejora. 
+  + **0 a 10**: La diferencia implica un leve retroceso de entre 1 y 10 puntos porcentuales. 
+  + **10 a 25**: La diferencia implica un retroceso intermedio de entre 1 y 10 puntos porcentuales.
+  + **> 25**: La diferencia implica un importante retroceso, de - al menos - 25 puntos porcentuales.
   
 Column {.tabset}
 -------------------------------------
@@ -268,12 +268,12 @@ Column {data-width=180}
 
 * Avances: Es el resultado de la diferencia entre la cifra del 2017, o el mayor año, y la cifra del 2007, o el menor año. 
 
-  + < -25: La diferencia supera los 25 puntos porcentuales. Supone una importante mejora.
-  + -10 a -25: La diferencia oscila entre los 10 y 25 puntos porcentuales.Supone una mejora intermedia. 
-  + -10 a 0: La diferencia oscila entre los 0 y 10 puntos porcentuales.Supone ningún cambio o una leve mejora. 
-  + 0 a 10: La diferencia implica un leve retroceso de entre 1 y 10 puntos porcentuales. 
-  + 10 a 10: La diferencia implica un retroceso intermedio de entre 1 y 10 puntos porcentuales.
-  + > 25: La diferencia implica un importante retroceso, de - al menos - 25 puntos porcentuales.
+  + **< -25**: La diferencia supera los 25 puntos porcentuales. Supone una importante mejora.
+  + **-10 a -25**: La diferencia oscila entre los 10 y 25 puntos porcentuales.Supone una mejora intermedia. 
+  + **-10 a 0**: La diferencia oscila entre los 0 y 10 puntos porcentuales.Supone ningún cambio o una leve mejora. 
+  + **0 a 10**: La diferencia implica un leve retroceso de entre 1 y 10 puntos porcentuales. 
+  + **10 a 25**: La diferencia implica un retroceso intermedio de entre 1 y 10 puntos porcentuales.
+  + **> 25**: La diferencia implica un importante retroceso, de - al menos - 25 puntos porcentuales.
 
 Column {.tabset}
 -------------------------------------
@@ -341,12 +341,12 @@ Column {data-width=180}
 
 * Avances: Es el resultado de la diferencia entre la cifra del 2017, o el mayor año, y la cifra del 2007, o el menor año. 
 
-  + < -25: La diferencia supera los 25 puntos porcentuales. Supone una importante mejora.
-  + -10 a -25: La diferencia oscila entre los 10 y 25 puntos porcentuales.Supone una mejora intermedia. 
-  + -10 a 0: La diferencia oscila entre los 0 y 10 puntos porcentuales.Supone ningún cambio o una leve mejora. 
-  + 0 a 10: La diferencia implica un leve retroceso de entre 1 y 10 puntos porcentuales. 
-  + 10 a 10: La diferencia implica un retroceso intermedio de entre 1 y 10 puntos porcentuales.
-  + > 25: La diferencia implica un importante retroceso, de - al menos - 25 puntos porcentuales.
+  + **< -25**: La diferencia supera los 25 puntos porcentuales. Supone una importante mejora.
+  + **-10 a -25**: La diferencia oscila entre los 10 y 25 puntos porcentuales.Supone una mejora intermedia. 
+  + **-10 a 0**: La diferencia oscila entre los 0 y 10 puntos porcentuales.Supone ningún cambio o una leve mejora. 
+  + **0 a 10**: La diferencia implica un leve retroceso de entre 1 y 10 puntos porcentuales. 
+  + **10 a 25**: La diferencia implica un retroceso intermedio de entre 1 y 10 puntos porcentuales.
+  + **> 25**: La diferencia implica un importante retroceso, de - al menos - 25 puntos porcentuales.
 
 Column {.tabset}
 -------------------------------------
