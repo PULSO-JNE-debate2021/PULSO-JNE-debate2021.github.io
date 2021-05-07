@@ -1,3 +1,6 @@
+```{r}
+names(regdata)
+```
 
 carga
 ```{r}
@@ -26,7 +29,7 @@ pobMal=c("Sin_seguro_de_salud_2007", "Sin_seguro_de_salud_2017", "Tasa_de_empleo
 vivMal=c("Agua_Red_publica_2007", "Agua_Red_publica_2017", "Alumbrado_electrico_por_red_publica_2007", "Alumbrado_electrico_por_red_publica_2017", "Vivienda_alquilada_2007", "Vivienda_alquilada_2017")
 
 
-hogMal=c("Hogares_sin_TIC_2007","Hogares_sin_TIC_2017", "Hogares_con_ninos_que_no_asisten_a_la_escuela_2007", "Hogares_con_ninos_que_no_asisten_a_la_escuela_2017", "Hogares_con_viviendas_con_hacinamiento_2007", "Hogares_con_viviendas_con_hacinamiento_2017")
+hogMal=c("Hogares_sin_TIC_2007","Hogares_sin_TIC_2017", "Hogares_con_viviendas_sin_servicios_higienicos_2007", "Hogares_con_viviendas_sin_servicios_higienicos_2017", "Hogares_con_viviendas_con_hacinamiento_2007", "Hogares_con_viviendas_con_hacinamiento_2017")
 
 varSel=c(base,pobMal,vivMal,hogMal)
 
@@ -51,7 +54,7 @@ dataJNE$viv_sin_electricidad=dataJNE$Sin_Alumbrado_electrico_por_red_publica_201
 dataJNE$viv_alquilada=dataJNE$Vivienda_alquilada_2017-dataJNE$Vivienda_alquilada_2007
 
 dataJNE$hog_sin_TIC=dataJNE$Hogares_sin_TIC_2017-dataJNE$Hogares_sin_TIC_2007
-dataJNE$hog_ninos_sin_escuela=dataJNE$Hogares_con_ninos_que_no_asisten_a_la_escuela_2017-dataJNE$Hogares_con_ninos_que_no_asisten_a_la_escuela_2007
+dataJNE$hog_sin_servhigie=dataJNE$Hogares_con_viviendas_sin_servicios_higienicos_2017-dataJNE$Hogares_con_viviendas_sin_servicios_higienicos_2007
 dataJNE$hog_hacinamiento=dataJNE$Hogares_con_viviendas_con_hacinamiento_2017-dataJNE$Hogares_con_viviendas_con_hacinamiento_2007
 
 
@@ -91,7 +94,7 @@ pob=dataJNE[,c(1,varsToCat)]
 
 for (var in names(pob[,-1])){
     cortes=c(-100,-25,-10,0,10,25,100)
-    etis=c("Mejora más de 25%","Mejora de 10 a 25%","Mejora hasta 10%","Empeora hasta 10%","Empeora de 10 a 25%","Empeora más de 25%")
+    etis=c("< -25","-10 a -25","-10 a 0","10 a 0","10 a 25","> 25")
     pob[,var]=cut(pob[,var], breaks = cortes,
                   labels = etis,
                   include.lowest = T,
