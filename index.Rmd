@@ -4,7 +4,17 @@ output:
   flexdashboard::flex_dashboard:
     orientation: columns
     vertical_layout: fill
+    logo: Webp.net-resizeimage.png
 ---
+<style>                     
+.navbar {
+  background-color:#1e325c;
+  border-color:#1e325c;
+}
+.navbar-brand {
+color:white!important;
+}
+</style>   
 
 ```{r setup, include=FALSE}
 library(flexdashboard)
@@ -43,7 +53,7 @@ segu2017=base + geom_sf(aes(fill=Sin_seguro_de_salud_2017_cat))+
                                       data=debamap[debamap$Sin_seguro_de_salud_2017_cat=="Alarmante"|debamap$Sin_seguro_de_salud_2017_cat=="Crítico",],
                                       size = 2,
                                       fontface = 'bold')
-segu2017=segu2017 + labs(fill="Porcentaje (%)")
+segu2017=segu2017 + labs(fill="Nivel")
 
 info2017=base + geom_sf(aes(fill=Tasa_de_empleo_informal_2019_cat))+
                       geom_text_repel(mapping = aes(coords_x, coords_y, label = DEPARTAMEN),
@@ -51,8 +61,7 @@ info2017=base + geom_sf(aes(fill=Tasa_de_empleo_informal_2019_cat))+
                                                   debamap$Tasa_de_empleo_informal_2019_cat=="Crítico",],
                                       size = 2,
                                       fontface = 'bold')
-info2017=info2017 + labs(fill="Porcentaje (%)",
-                     title = "Tasa de empleo informal",subtitle = "2019")
+info2017=info2017 + labs(fill="Nivel")
 
 
 analf2017=base + geom_sf(aes(fill=Analfabetismo_2017_cat)) +
@@ -61,8 +70,7 @@ analf2017=base + geom_sf(aes(fill=Analfabetismo_2017_cat)) +
                                                   debamap$Analfabetismo_2017_cat=="Crítico",],
                                       size = 2,
                                       fontface = 'bold')
-analf2017=analf2017 + labs(fill="Porcentaje (%)",
-                     title = "Tasa de analfabetismo",subtitle = "2017")
+analf2017=analf2017 + labs(fill="Nivel")
 
 
 agua2017=base + geom_sf(aes(fill=Sin_Agua_Red_publica_2017_cat))+
@@ -71,8 +79,7 @@ agua2017=base + geom_sf(aes(fill=Sin_Agua_Red_publica_2017_cat))+
                                                   debamap$Sin_Agua_Red_publica_2017_cat=="Crítico",],
                                       size = 2,
                                       fontface = 'bold')
-agua2017=agua2017 + labs(fill="Porcentaje (%)",
-                     title = "Hogares sin acceso a agua", subtitle="Por red pública- 2017")
+agua2017=agua2017 + labs(fill="Nivel")
 
 
 elec2017=base + geom_sf(aes(fill=Sin_Alumbrado_electrico_por_red_publica_2017_cat))+
@@ -81,8 +88,7 @@ elec2017=base + geom_sf(aes(fill=Sin_Alumbrado_electrico_por_red_publica_2017_ca
                                                   debamap$Sin_Alumbrado_electrico_por_red_publica_2017_cat=="Crítico",],
                                       size = 2,
                                       fontface = 'bold')
-elec2017=elec2017 + labs(fill="Porcentaje (%)",
-                     title = "Hogares sin acceso a alumbrado eléctrico",subtitle = "Por red pública- 2017")
+elec2017=elec2017 + labs(fill="Nivel")
 
 
 alqui2017=base + geom_sf(aes(fill=Vivienda_alquilada_2017_cat))+
@@ -91,8 +97,7 @@ alqui2017=base + geom_sf(aes(fill=Vivienda_alquilada_2017_cat))+
                                                   debamap$Vivienda_alquilada_2017_cat=="Crítico",],
                                       size = 2,
                                       fontface = 'bold')
-alqui2017=alqui2017 + labs(fill="Porcentaje (%)",
-                     title = "Viviendas alquiladas",subtitle = "2017")
+alqui2017=alqui2017 + labs(fill="Nivel")
 
 
 tic2017=base + geom_sf(aes(fill=Hogares_sin_TIC_2017_cat))+
@@ -101,8 +106,7 @@ tic2017=base + geom_sf(aes(fill=Hogares_sin_TIC_2017_cat))+
                                                   debamap$Hogares_sin_TIC_2017_cat=="Crítico",],
                                       size = 2,
                                       fontface = 'bold')
-tic2017=tic2017 + labs(fill="Porcentaje (%)",
-                     title = "Hogares sin TIC", subtitle = "2017")
+tic2017=tic2017 + labs(fill="Nivel")
 
 
 servhig2017=base + geom_sf(aes(fill=Hogares_con_viviendas_sin_servicios_higienicos_2017_cat))+
@@ -111,8 +115,7 @@ servhig2017=base + geom_sf(aes(fill=Hogares_con_viviendas_sin_servicios_higienic
                                                   debamap$Hogares_con_viviendas_sin_servicios_higienicos_2017_cat=="Crítico",],
                                       size = 2,
                                       fontface = 'bold')
-servhig2017=servhig2017 + labs(fill="Porcentaje (%)",
-                     title = "Hogar sin servicios higiénicos",subtitle = "2017")
+servhig2017=servhig2017 + labs(fill="Nivel")
 
 
 haci2017=base + geom_sf(aes(fill=Hogares_con_viviendas_con_hacinamiento_2017_cat))+
@@ -121,8 +124,7 @@ haci2017=base + geom_sf(aes(fill=Hogares_con_viviendas_con_hacinamiento_2017_cat
                                                   debamap$Hogares_con_viviendas_con_hacinamiento_2017_cat=="Crítico",],
                                       size = 2,
                                       fontface = 'bold')
-haci2017=haci2017 + labs(fill="Porcentaje (%)",
-                     title = "Hogares en hacinamiento",subtitle = "2017")
+haci2017=haci2017 + labs(fill="Nivel")
 
 
 ```
@@ -134,29 +136,28 @@ segu=base + geom_sf(aes(fill=pob_sin_seguro_salud_cat))
 segu=segu + labs(fill ="Cambio en %")
 
 info=base + geom_sf(aes(fill=pob_empleo_informal_cat))
-info=info + labs(fill="Cambio en %",
-                 title = "Tasa de empleo informal",subtitle = "Avances entre 2008- 2019")
+info=info + labs(fill="Cambio en %")
 
 analf=base + geom_sf(aes(fill=pob_analfabetismo_cat)) 
-analf=analf + labs(fill="Cambio en %",title = "Tasa de analfabetismo",subtitle = "Avances entre 2007- 2017")
+analf=analf + labs(fill="Cambio en %")
 
 agua=base + geom_sf(aes(fill=viv_sin_agua_cat)) 
-agua=agua + labs(fill="Cambio en %",title = "Hogares sin acceso a agua",subtitle = "Avances entre 2007- 2017")
+agua=agua + labs(fill="Cambio en %")
 
 elec=base + geom_sf(aes(fill=viv_sin_electricidad_cat)) 
-elec=elec + labs(fill="Cambio en %",title = "Hogares sin acceso a alumbrado eléctrico",subtitle = "Avances entre 2007- 2017")
+elec=elec + labs(fill="Cambio en %")
 
 alqui=base + geom_sf(aes(fill=viv_alquilada_cat)) 
-alqui=alqui + labs(fill="Cambio en %",title = "Viviendas alquiladas",subtitle = "Avances entre 2007- 2017")
+alqui=alqui + labs(fill="Cambio en %")
 
 tic=base + geom_sf(aes(fill=hog_sin_TIC_cat)) 
-tic=tic + labs(fill="Cambio en %",title = "Hogares sin TIC",subtitle = "Avances entre 2007- 2017")
+tic=tic + labs(fill="Cambio en %")
 
 servhig=base + geom_sf(aes(fill=hog_sin_servhigie_cat)) 
-servhig=servhig + labs(fill="Cambio en %",title = "Hogar sin servicios higiénicos",subtitle = "Avances entre 2007- 2017")
+servhig=servhig + labs(fill="Cambio en %")
  
 haci=base + geom_sf(aes(fill=hog_hacinamiento_cat)) 
-haci=haci + labs(fill="Cambio en %",title = "Hogares en hacinamiento",subtitle = "Avances entre 2007- 2017")
+haci=haci + labs(fill="Cambio en %")
 
 ```
 
@@ -172,12 +173,12 @@ Column {data-width=180}
     
 ### **NOTAS**
 
-* Categorias a la actualidad (2017 o el mayor año):
+* Niveles a la actualidad (2017 o el mayor año):
 
-  + Aceptable: No más del 10% de la población cumple con la condición.
-  + Preocupante: Entre el 10% y 25% de la población cumple con la condición.
-  + Alarmante: Entre el 25% y 50% de la población cumple con la condición. 
-  + Crítico: Al menos el 50% de la población cumple con la condición.
+  + **Aceptable**: No más del 10% de la población cumple con la condición.
+  + **Preocupante**: Entre el 10% y 25% de la población cumple con la condición.
+  + **Alarmante**: Entre el 25% y 50% de la población cumple con la condición. 
+  + **Crítico**: Al menos el 50% de la población cumple con la condición.
 
 
 * Datos utilizados:
@@ -196,7 +197,7 @@ Column {data-width=180}
   + **-10 a -25**: La diferencia oscila entre los 10 y 25 puntos porcentuales.Supone una mejora intermedia. 
   + **-10 a 0**: La diferencia oscila entre los 0 y 10 puntos porcentuales.Supone ningún cambio o una leve mejora. 
   + **0 a 10**: La diferencia implica un leve retroceso de entre 1 y 10 puntos porcentuales. 
-  + **10 a 25**: La diferencia implica un retroceso intermedio de entre 1 y 10 puntos porcentuales.
+  + **10 a 25**: La diferencia implica un retroceso intermedio de entre 10 y 25 puntos porcentuales.
   + **> 25**: La diferencia implica un importante retroceso, de - al menos - 25 puntos porcentuales.
   
 Column {.tabset}
@@ -212,31 +213,45 @@ ggarrange(
   segu2017, NULL,  segu,
   nrow = 1, widths = c(1, 0.1, 1),
   labels = c("2017","" ,"Avances entre 2007- 2017"),hjust = 0,
-  label.x=c(0.4,0,0.3), font.label = list(size = 14, 
+  label.x=c(0.4,0,0.3), font.label = list(size = 13, 
                                         face = "bold", 
-                                        color ="blue")
+                                        color ="#1e325c")
   )%>%annotate_figure(top = text_grob(titulo,
-                                      color = "blue", 
+                                      color = "#1e325c", 
                                       face = "bold",
-                                      size = 20),
+                                      size = 16),
                       bottom = text_grob(abajo, 
-                                         color = "blue",
+                                         color = "#1e325c",
                                          hjust = 1, 
-                                         x = 1, face = "bold", size = 14)
+                                         x = 1, size = 10)
                #,fig.lab = "Figure 1", fig.lab.face = "bold"
 )
 ```
 
 
-
 ### **Trabajo decente**
 
 ```{r,fig.height = 5, fig.width = 8, fig.align = "center"}
+
+titulo="Tasa de empleo informal"
+abajo="Elaborado por PULSO PUCP para la DNEF-JNE"
 ggarrange(
   info2017, NULL,  info,
   nrow = 1, widths = c(1, 0.1, 1),
-  labels = c("", "", "")
-  )
+  labels = c("2019","" ,"Avances entre 2008- 2019"),hjust = 0,
+  label.x=c(0.4,0,0.3), font.label = list(size = 13, 
+                                        face = "bold", 
+                                        color ="#1e325c")
+  )%>%annotate_figure(top = text_grob(titulo,
+                                      color = "#1e325c", 
+                                      face = "bold",
+                                      size = 16),
+                      bottom = text_grob(abajo, 
+                                         color = "#1e325c",
+                                         hjust = 1, 
+                                         x = 1, size = 10)
+               #,fig.lab = "Figure 1", fig.lab.face = "bold"
+)
 ```
 
 
@@ -244,11 +259,26 @@ ggarrange(
 
 
 ```{r,fig.height = 5, fig.width = 8, fig.align = "center"}
+
+titulo="Tasa de analfabetismo"
+abajo="Elaborado por PULSO PUCP para la DNEF-JNE"
 ggarrange(
   analf2017, NULL,  analf,
   nrow = 1, widths = c(1, 0.1, 1),
-  labels = c("", "", "")
-  )
+   labels = c("2017","" ,"Avances entre 2007- 2017"),hjust = 0,
+  label.x=c(0.4,0,0.3), font.label = list(size = 13, 
+                                        face = "bold", 
+                                        color ="#1e325c")
+  )%>%annotate_figure(top = text_grob(titulo,
+                                      color = "#1e325c", 
+                                      face = "bold",
+                                      size = 16),
+                      bottom = text_grob(abajo, 
+                                         color = "#1e325c",
+                                         hjust = 1, 
+                                         x = 1, size = 10)
+               #,fig.lab = "Figure 1", fig.lab.face = "bold"
+)
 ```
 
 
@@ -261,7 +291,7 @@ Column {data-width=180}
     
 ### **NOTAS**
 
-* Categorias a la actualidad (2017 o el mayor año):
+* Niveles a la actualidad (2017 o el mayor año):
 
   + Aceptable: No más del 10% de la población cumple con la condición.
   + Preocupante: Entre el 10% y 25% de la población cumple con la condición.
@@ -285,7 +315,7 @@ Column {data-width=180}
   + **-10 a -25**: La diferencia oscila entre los 10 y 25 puntos porcentuales.Supone una mejora intermedia. 
   + **-10 a 0**: La diferencia oscila entre los 0 y 10 puntos porcentuales.Supone ningún cambio o una leve mejora. 
   + **0 a 10**: La diferencia implica un leve retroceso de entre 1 y 10 puntos porcentuales. 
-  + **10 a 25**: La diferencia implica un retroceso intermedio de entre 1 y 10 puntos porcentuales.
+  + **10 a 25**: La diferencia implica un retroceso intermedio de entre 10 y 25 puntos porcentuales.
   + **> 25**: La diferencia implica un importante retroceso, de - al menos - 25 puntos porcentuales.
 
 Column {.tabset}
@@ -294,34 +324,77 @@ Column {.tabset}
 ### **Acceso a agua**
 
 ```{r,fig.height = 5, fig.width = 8, fig.align = "center"}
+
+titulo="Hogares sin acceso a agua por red pública"
+abajo="Elaborado por PULSO PUCP para la DNEF-JNE"
 ggarrange(
   agua2017, NULL,  agua,
   nrow = 1, widths = c(1, 0.1, 1),
-  labels = c("", "", "")
-  )
-
+   labels = c("2017","" ,"Avances entre 2007- 2017"),hjust = 0,
+  label.x=c(0.4,0,0.3), font.label = list(size = 13, 
+                                        face = "bold", 
+                                        color ="#1e325c")
+  )%>%annotate_figure(top = text_grob(titulo,
+                                      color = "#1e325c", 
+                                      face = "bold",
+                                      size = 16),
+                      bottom = text_grob(abajo, 
+                                         color = "#1e325c",
+                                         hjust = 1, 
+                                         x = 1, size = 10)
+               #,fig.lab = "Figure 1", fig.lab.face = "bold"
+)
 ```
 
 
 ### **Acceso a servicios energéticos**
 
 ```{r,fig.height = 5, fig.width = 8, fig.align = "center"}
+
+titulo="Hogares sin acceso a alumbrado eléctrico por red pública"
+abajo="Elaborado por PULSO PUCP para la DNEF-JNE"
 ggarrange(
   elec2017, NULL,  elec,
   nrow = 1, widths = c(1, 0.1, 1),
-  labels = c("", "", "")
-  )
+   labels = c("2017","" ,"Avances entre 2007- 2017"),hjust = 0,
+  label.x=c(0.4,0,0.3), font.label = list(size = 13, 
+                                        face = "bold", 
+                                        color ="#1e325c")
+  )%>%annotate_figure(top = text_grob(titulo,
+                                      color = "#1e325c", 
+                                      face = "bold",
+                                      size = 16),
+                      bottom = text_grob(abajo, 
+                                         color = "#1e325c",
+                                         hjust = 1, 
+                                         x = 1, size = 10)
+               #,fig.lab = "Figure 1", fig.lab.face = "bold"
+)
 ```
 
 ### **Tenencia de vivienda**
 
 ```{r,fig.height = 5, fig.width = 8, fig.align = "center"}
+
+titulo="Viviendas alquiladas"
+abajo="Elaborado por PULSO PUCP para la DNEF-JNE"
 ggarrange(
   alqui2017, NULL,  alqui,
   nrow = 1, widths = c(1, 0.1, 1),
-  labels = c("", "", "")
-  )
-
+   labels = c("2017","" ,"Avances entre 2007- 2017"),hjust = 0,
+  label.x=c(0.4,0,0.3), font.label = list(size = 13, 
+                                        face = "bold", 
+                                        color ="#1e325c")
+  )%>%annotate_figure(top = text_grob(titulo,
+                                      color = "#1e325c", 
+                                      face = "bold",
+                                      size = 16),
+                      bottom = text_grob(abajo, 
+                                         color = "#1e325c",
+                                         hjust = 1, 
+                                         x = 1, size = 10)
+               #,fig.lab = "Figure 1", fig.lab.face = "bold"
+)
 ```
 
 
@@ -334,7 +407,7 @@ Column {data-width=180}
     
 ### **NOTAS**
 
-* Categorias a la actualidad (2017 o el mayor año):
+* Niveles a la actualidad (2017 o el mayor año):
 
   + Aceptable: No más del 10% de la población cumple con la condición.
   + Preocupante: Entre el 10% y 25% de la población cumple con la condición.
@@ -358,7 +431,7 @@ Column {data-width=180}
   + **-10 a -25**: La diferencia oscila entre los 10 y 25 puntos porcentuales.Supone una mejora intermedia. 
   + **-10 a 0**: La diferencia oscila entre los 0 y 10 puntos porcentuales.Supone ningún cambio o una leve mejora. 
   + **0 a 10**: La diferencia implica un leve retroceso de entre 1 y 10 puntos porcentuales. 
-  + **10 a 25**: La diferencia implica un retroceso intermedio de entre 1 y 10 puntos porcentuales.
+  + **10 a 25**: La diferencia implica un retroceso intermedio de entre 10 y 25 puntos porcentuales.
   + **> 25**: La diferencia implica un importante retroceso, de - al menos - 25 puntos porcentuales.
 
 Column {.tabset}
@@ -367,30 +440,75 @@ Column {.tabset}
 ### **Acceso a Tecnologías de la Información y Comunicaciones**
 
 ```{r,fig.height = 5, fig.width = 8, fig.align = "center"}
+
+titulo="Hogares sin Tecnologías de la Información y Comunicaciones"
+abajo="Elaborado por PULSO PUCP para la DNEF-JNE"
 ggarrange(
   tic2017, NULL,  tic,
   nrow = 1, widths = c(1, 0.1, 1),
-  labels = c("", "", "")
-  )
+   labels = c("2017","" ,"Avances entre 2007- 2017"),hjust = 0,
+  label.x=c(0.4,0,0.3), font.label = list(size = 13, 
+                                        face = "bold", 
+                                        color ="#1e325c")
+  )%>%annotate_figure(top = text_grob(titulo,
+                                      color = "#1e325c", 
+                                      face = "bold",
+                                      size = 16),
+                      bottom = text_grob(abajo, 
+                                         color = "#1e325c",
+                                         hjust = 1, 
+                                         x = 1, size = 10)
+               #,fig.lab = "Figure 1", fig.lab.face = "bold"
+)
 ```
 
 
 ### **Acceso a servicios básicos**
 
 ```{r,fig.height = 5, fig.width = 8, fig.align = "center"}
+
+titulo="Hogar con viviendas sin servicios higiénicos"
+abajo="Elaborado por PULSO PUCP para la DNEF-JNE"
 ggarrange(
   servhig2017, NULL, servhig,
   nrow = 1, widths = c(1, 0.1, 1),
-  labels = c("", "", "")
-  )
+   labels = c("2017","" ,"Avances entre 2007- 2017"),hjust = 0,
+  label.x=c(0.4,0,0.3), font.label = list(size = 13, 
+                                        face = "bold", 
+                                        color ="#1e325c")
+  )%>%annotate_figure(top = text_grob(titulo,
+                                      color = "#1e325c", 
+                                      face = "bold",
+                                      size = 16),
+                      bottom = text_grob(abajo, 
+                                         color = "#1e325c",
+                                         hjust = 1, 
+                                         x = 1, size = 10)
+               #,fig.lab = "Figure 1", fig.lab.face = "bold"
+)
 ```
 
 ### **Acceso a vivienda adecuada**
 
 ```{r,fig.height = 5, fig.width = 8, fig.align = "center"}
+
+titulo="Hogares con viviendas con hacinamiento"
+abajo="Elaborado por PULSO PUCP para la DNEF-JNE"
 ggarrange(
   haci2017, NULL,haci,
   nrow = 1, widths = c(1, 0.1, 1),
-  labels = c("", "", "")
-  )
+   labels = c("2017","" ,"Avances entre 2007- 2017"),hjust = 0,
+  label.x=c(0.4,0,0.3), font.label = list(size = 13, 
+                                        face = "bold", 
+                                        color ="#1e325c")
+  )%>%annotate_figure(top = text_grob(titulo,
+                                      color = "#1e325c", 
+                                      face = "bold",
+                                      size = 16),
+                      bottom = text_grob(abajo, 
+                                         color = "#1e325c",
+                                         hjust = 1, 
+                                         x = 1, size = 10)
+               #,fig.lab = "Figure 1", fig.lab.face = "bold"
+)
 ```
