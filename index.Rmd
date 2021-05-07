@@ -11,10 +11,16 @@ library(flexdashboard)
 library(sf)
 library(ggplot2)
 library(ggpubr)
+library(tidyverse)
+library(sf)
+library(ggrepel)
+library(repr)
 debatable=readRDS("dataJNE.rds")
 debamap=read_sf("regiones.shp")
 debamap=merge(debamap,debatable,
               by.x='DEPARTAMEN',by.y="Departamento")
+
+debamap <- debamap %>% mutate(centroid = map(geometry, st_centroid), coords = map(centroid,                                                                                        st_coordinates), coords_x = map_dbl(coords, 1), coords_y = map_dbl(coords, 2))
 
 base=ggplot(data=debamap) + theme_void()  + scale_fill_brewer(palette = "YlOrBr",drop=FALSE)
 #names(debamap)
@@ -32,49 +38,92 @@ base=ggplot(data=debamap) + theme_void()  + scale_fill_brewer(palette = "YlOrBr"
 # [42] "Hogares_con_ninos_que_no_asisten_a_la_escuela_2017_cat"
 # [43] "Hogares_con_viviendas_con_hacinamiento_2017_cat"
 
-segu2017=base + geom_sf(aes(fill=Sin_seguro_de_salud_2017_cat))
-segu2017=segu2017 + labs(fill="Situación",
-                     title = "Aseguramiento en Salud (al 2017)")
+segu2017=base + geom_sf(aes(fill=Sin_seguro_de_salud_2017_cat))+
+                      geom_text_repel(mapping = aes(coords_x, coords_y, label = DEPARTAMEN),
+                                      data=debamap[debamap$Sin_seguro_de_salud_2017_cat=="Alarmante"|debamap$Sin_seguro_de_salud_2017_cat=="Crítico",],
+                                      size = 2,
+                                      fontface = 'bold')
+segu2017=segu2017 + labs(fill="Porcentaje (%)",
+                     title = "Población sin seguro de salud", subtitle = "2017")
 
-info2017=base + geom_sf(aes(fill=Tasa_de_empleo_informal_2019_cat))
-info2017=info2017 + labs(fill="Situación",
-                     title = "Empleo Informal (al 2019)")
-
-
-analf2017=base + geom_sf(aes(fill=Analfabetismo_2017_cat))
-analf2017=analf2017 + labs(fill="Situación",
-                     title = "Analfabetismo (al 2017)")
-
-
-agua2017=base + geom_sf(aes(fill=Sin_Agua_Red_publica_2017_cat))
-agua2017=agua2017 + labs(fill="Situación",
-                     title = "Acceso al Agua (al 2017)")
-
-
-elec2017=base + geom_sf(aes(fill=Sin_Alumbrado_electrico_por_red_publica_2017_cat))
-elec2017=elec2017 + labs(fill="Situación",
-                     title = "Acceso a Electricidad (al 2017)")
+info2017=base + geom_sf(aes(fill=Tasa_de_empleo_informal_2019_cat))+
+                      geom_text_repel(mapping = aes(coords_x, coords_y, label = DEPARTAMEN),
+                                      data=debamap[debamap$Tasa_de_empleo_informal_2019_cat=="Alarmante"|
+                                                  debamap$Tasa_de_empleo_informal_2019_cat=="Crítico",],
+                                      size = 2,
+                                      fontface = 'bold')
+info2017=info2017 + labs(fill="Porcentaje (%)",
+                     title = "Tasa de empleo informal",subtitle = "2019")
 
 
-alqui2017=base + geom_sf(aes(fill=Vivienda_alquilada_2017_cat))
-alqui2017=alqui2017 + labs(fill="Situación",
-                     title = "Vivienda Propia (al 2017)")
+analf2017=base + geom_sf(aes(fill=Analfabetismo_2017_cat)) +
+                      geom_text_repel(mapping = aes(coords_x, coords_y, label = DEPARTAMEN),
+                                      data=debamap[debamap$Analfabetismo_2017_cat=="Alarmante"|
+                                                  debamap$Analfabetismo_2017_cat=="Crítico",],
+                                      size = 2,
+                                      fontface = 'bold')
+analf2017=analf2017 + labs(fill="Porcentaje (%)",
+                     title = "Tasa de analfabetismo",subtitle = "2017")
 
 
-tic2017=base + geom_sf(aes(fill=Hogares_sin_TIC_2017_cat))
-tic2017=tic2017 + labs(fill="Situación",
-                     title = "Tecnología de Comunicación (al 2017)")
+agua2017=base + geom_sf(aes(fill=Sin_Agua_Red_publica_2017_cat))+
+                      geom_text_repel(mapping = aes(coords_x, coords_y, label = DEPARTAMEN),
+                                      data=debamap[debamap$Sin_Agua_Red_publica_2017_cat=="Alarmante"|
+                                                  debamap$Sin_Agua_Red_publica_2017_cat=="Crítico",],
+                                      size = 2,
+                                      fontface = 'bold')
+agua2017=agua2017 + labs(fill="Porcentaje (%)",
+                     title = "Hogares sin acceso a agua", subtitle="Por red pública- 2017")
 
 
-ninos2017=base + geom_sf(aes(fill=Hogares_con_ninos_que_no_asisten_a_la_escuela_2017_cat))
-ninos2017=ninos2017 + labs(fill="Situación",
-                     title = "Hogar con niños que no van a la Escuela (al 2017)")
+elec2017=base + geom_sf(aes(fill=Sin_Alumbrado_electrico_por_red_publica_2017_cat))+
+                      geom_text_repel(mapping = aes(coords_x, coords_y, label = DEPARTAMEN),
+                                      data=debamap[debamap$Sin_Alumbrado_electrico_por_red_publica_2017_cat=="Alarmante"|
+                                                  debamap$Sin_Alumbrado_electrico_por_red_publica_2017_cat=="Crítico",],
+                                      size = 2,
+                                      fontface = 'bold')
+elec2017=elec2017 + labs(fill="Porcentaje (%)",
+                     title = "Hogares sin acceso a alumbrado eléctrico",subtitle = "Por red pública- 2017")
 
 
-haci2017=base + geom_sf(aes(fill=Hogares_con_viviendas_con_hacinamiento_2017_cat))
-haci2017=haci2017 + labs(fill="Situación",
-                     title = "Hogar con Hacinamiento (al 2017)")
+alqui2017=base + geom_sf(aes(fill=Vivienda_alquilada_2017_cat))+
+                      geom_text_repel(mapping = aes(coords_x, coords_y, label = DEPARTAMEN),
+                                      data=debamap[debamap$Vivienda_alquilada_2017_cat=="Alarmante"|
+                                                  debamap$Vivienda_alquilada_2017_cat=="Crítico",],
+                                      size = 2,
+                                      fontface = 'bold')
+alqui2017=alqui2017 + labs(fill="Porcentaje (%)",
+                     title = "Viviendas alquiladas",subtitle = "2017")
 
+
+tic2017=base + geom_sf(aes(fill=Hogares_sin_TIC_2017_cat))+
+                      geom_text_repel(mapping = aes(coords_x, coords_y, label = DEPARTAMEN),
+                                      data=debamap[debamap$Hogares_sin_TIC_2017_cat=="Alarmante"|
+                                                  debamap$Hogares_sin_TIC_2017_cat=="Crítico",],
+                                      size = 2,
+                                      fontface = 'bold')
+tic2017=tic2017 + labs(fill="Porcentaje (%)",
+                     title = "Hogares sin TIC", subtitle = "2017")
+
+
+servhig2017=base + geom_sf(aes(fill=Hogares_con_viviendas_sin_servicios_higienicos_2017_cat))+
+                      geom_text_repel(mapping = aes(coords_x, coords_y, label = DEPARTAMEN),
+                                      data=debamap[debamap$Hogares_con_viviendas_sin_servicios_higienicos_2017_cat=="Alarmante"|
+                                                  debamap$Hogares_con_viviendas_sin_servicios_higienicos_2017_cat=="Crítico",],
+                                      size = 2,
+                                      fontface = 'bold')
+servhig2017=servhig2017 + labs(fill="Porcentaje (%)",
+                     title = "Hogar sin servicios higiénicos",subtitle = "2017")
+
+
+haci2017=base + geom_sf(aes(fill=Hogares_con_viviendas_con_hacinamiento_2017_cat))+
+                      geom_text_repel(mapping = aes(coords_x, coords_y, label = DEPARTAMEN),
+                                      data=debamap[debamap$Hogares_con_viviendas_con_hacinamiento_2017_cat=="Alarmante"|
+                                                  debamap$Hogares_con_viviendas_con_hacinamiento_2017_cat=="Crítico",],
+                                      size = 2,
+                                      fontface = 'bold')
+haci2017=haci2017 + labs(fill="Porcentaje (%)",
+                     title = "Hogares en hacinamiento",subtitle = "2017")
 
 
 ```
@@ -83,39 +132,40 @@ haci2017=haci2017 + labs(fill="Situación",
 
 ```{r plotsCode_CAMBIOS, warning=FALSE, message=FALSE}
 segu=base + geom_sf(aes(fill=pob_sin_seguro_salud_cat))
-segu=segu + labs(fill ="Cambio",
-                 title="Aseguramiento en Salud - Luego de 10 años")
+segu=segu + labs(fill ="Puntos porcent.",
+                 title="Población sin seguro de salud",subtitle = "Avances entre 2007- 2017")
 
 info=base + geom_sf(aes(fill=pob_empleo_informal_cat))
-info=info + labs(fill="Cambio",title = "Empleo Informal  - Luego de 10 años")
+info=info + labs(fill="Puntos porcent.",
+                 title = "Tasa de empleo informal",subtitle = "Avances entre 2008- 2019")
 
 analf=base + geom_sf(aes(fill=pob_analfabetismo_cat)) 
-analf=analf + labs(fill="Cambio",title = "Analfabetismo - Luego de 10 años")
+analf=analf + labs(fill="Puntos porcent.",title = "Tasa de analfabetismo",subtitle = "Avances entre 2007- 2017")
 
 agua=base + geom_sf(aes(fill=viv_sin_agua_cat)) 
-agua=agua + labs(fill="Cambio",title = "Agua en las viviendas - Luego de 10 años")
+agua=agua + labs(fill="Puntos porcent.",title = "Hogares sin acceso a agua",subtitle = "Avances entre 2007- 2017")
 
 elec=base + geom_sf(aes(fill=viv_sin_electricidad_cat)) 
-elec=elec + labs(fill="Cambio",title = "Electricidad en las viviendas - Luego de 10 años")
+elec=elec + labs(fill="Puntos porcent.",title = "Hogares sin acceso a alumbrado eléctrico",subtitle = "Avances entre 2007- 2017")
 
 alqui=base + geom_sf(aes(fill=viv_alquilada_cat)) 
-alqui=alqui + labs(fill="Cambio",title = "Propiedad de la Vivienda - Luego de 10 años")
+alqui=alqui + labs(fill="Puntos porcent.",title = "Viviendas alquiladas",subtitle = "Avances entre 2007- 2017")
 
 tic=base + geom_sf(aes(fill=hog_sin_TIC_cat)) 
-tic=tic + labs(fill="Cambio",title = "Tecnologías de Comunicación- Luego de 10 años")
+tic=tic + labs(fill="Puntos porcent.",title = "Hogares sin TIC",subtitle = "Avances entre 2007- 2017")
 
-ninos=base + geom_sf(aes(fill=hog_ninos_sin_escuela_cat)) 
-ninos=ninos + labs(fill="Cambio",title = "Presencia de niños que no van a la escuela - Luego de 10 años")
-
+servhig=base + geom_sf(aes(fill=hog_sin_servhigie_cat)) 
+servhig=servhig + labs(fill="Puntos porcent.",title = "Hogar sin servicios higiénicos",subtitle = "Avances entre 2007- 2017")
+ 
 haci=base + geom_sf(aes(fill=hog_hacinamiento_cat)) 
-haci=haci + labs(fill="Cambio",title = "Hacinamiento - Luego de 10 años")
+haci=haci + labs(fill="Puntos porcent.",title = "Hogares en hacinamiento",subtitle = "Avances entre 2007- 2017")
 
 ```
 
 
 
 
-**CAMBIO EN VARIABLES CRITICAS DE LA POBLACION** 
+**CAMBIOS EN INDICADORES SOCIALES** 
 =====================================
 
 
@@ -124,53 +174,72 @@ Column {data-width=180}
     
 ### **NOTAS**
 
-* Categorias:
+* Categorias a la actualidad (2017 o el mayor año):
+
+  + Aceptable: No más del 10% de la población cumple con la condición.
+  + Preocupante: Entre el 10% y 25% de la población cumple con la condición.
+  + Alarmante: Entre el 25% y 50% de la población cumple con la condición. 
+  + Crítico: Al menos el 50% de la población cumple con la condición.
 
 
-* Datos utilizados: 
+* Datos utilizados:
 
+  + **Cobertura de los servicios de salud**
+    - 2007: Censos Nacionales 2007: XI de Población y VI de Vivienda. Recuperado de http://censos.inei.gob.pe/Censos2007/redatam/
+    - 2017: Censos Nacionales 2017: XII de Población, VII de Vivienda y III de Comunidades Indígenas. Recuperado de https://censos2017.inei.gob.pe/redatam/ 
+  + **Trabajo decente**
+    - Perú: Evolución de los Indicadores de Empleo e Ingreso por Departamento, 2007-2019. Recuperado de https://www.inei.gob.pe/media/MenuRecursivo/publicaciones_digitales/Est/Lib1790/libro.pdf 
+  + **Alfabetización** 
+    - Tasa de analfabetismo de la población de 15 y más años, según ámbito geográfico. Recuperado de https://www.inei.gob.pe/media/MenuRecursivo/publicaciones_digitales/Est/Lib1758/cap05/cap05057.xlsx 
 
-* Periodo: 
+* Avances: Es el resultado de la diferencia entre la cifra del indel 2017, o el mayor año, y la cifra del 2007, o el menor año, en puntos porcentuales. 
 
-
-
+  + < -25: La diferencia supera los 25 puntos porcentuales. Supone una importante mejora.
+  + -10 a -25: La diferencia oscila entre los 10 y 25 puntos porcentuales.Supone una mejora intermedia. 
+  + -10 a 0: La diferencia oscila entre los 0 y 10 puntos porcentuales.Supone ningún cambio o una leve mejora. 
+  + 0 a 10: La diferencia implica un leve retroceso de entre 1 y 10 puntos porcentuales. 
+  + 10 a 10: La diferencia implica un retroceso intermedio de entre 1 y 10 puntos porcentuales.
+  + > 25: La diferencia implica un importante retroceso, de - al menos - 25 puntos porcentuales.
+  
 Column {.tabset}
 -------------------------------------
 
-### **sobre POBLACION SIN SEGURO DE SALUD**
+### **Cobertura de los servicios de salud**
 
-```{r}
-
-ggarrange(segu2017, segu, 
-          labels = c(" ", " "),
-          ncol = 2)
+```{r, fig.height = 5, fig.width = 8, fig.align = "center"}
+ggarrange(
+  segu2017, NULL,  segu,
+  nrow = 1, widths = c(1, 0.1, 1),
+  labels = c("", "", "")
+  )
 ```
 
 
 
-### **Sobre TASA DE EMPLEO INFORMAL**
+### **Trabajo decente**
 
-```{r}
-
-ggarrange(info2017, info, 
-          labels = c(" ", " "),
-          ncol = 2)
-
+```{r,fig.height = 5, fig.width = 8, fig.align = "center"}
+ggarrange(
+  info2017, NULL,  info,
+  nrow = 1, widths = c(1, 0.1, 1),
+  labels = c("", "", "")
+  )
 ```
 
 
-### **Sobre ANALFABETISMO**
+### **Alfabetización**
 
 
-```{r}
-ggarrange(analf2017, analf, 
-          labels = c(" ", " "),
-          ncol = 2)
-
+```{r,fig.height = 5, fig.width = 8, fig.align = "center"}
+ggarrange(
+  analf2017, NULL,  analf,
+  nrow = 1, widths = c(1, 0.1, 1),
+  labels = c("", "", "")
+  )
 ```
 
 
-**CAMBIO EN VARIABLES CRITICAS DE VIVIENDA** 
+**CAMBIOS EN INDICADORES DE VIVIENDA** 
 =====================================
 
 
@@ -179,47 +248,71 @@ Column {data-width=180}
     
 ### **NOTAS**
 
-* Categorias:
+* Categorias a la actualidad (2017 o el mayor año):
+
+  + Aceptable: No más del 10% de la población cumple con la condición.
+  + Preocupante: Entre el 10% y 25% de la población cumple con la condición.
+  + Alarmante: Entre el 25% y 50% de la población cumple con la condición. 
+  + Crítico: Al menos el 50% de la población cumple con la condición.
 
 
-* Datos utilizados: 
+* Datos utilizados:
 
+  + **Acceso a agua**
+    - Perfil Sociodemográfico del Perú. Recuperado de https://www.inei.gob.pe/media/MenuRecursivo/publicaciones_digitales/Est/Lib1539/ 
+  + **Acceso a servicios energéticos**
+    - Proporción de la población que tiene acceso a la electricidad. Recuperado de http://ods.inei.gob.pe/ods/objetivos-de-desarrollo-sostenible/energia-asequible-y-no-contaminante 
+  + **Tenencia de vivienda** 
+    - 2007: Censos Nacionales 2007: XI de Población y VI de Vivienda. Recuperado de http://censos.inei.gob.pe/Censos2007/redatam/
+    - 2017: Censos Nacionales 2017: XII de Población, VII de Vivienda y III de Comunidades Indígenas. Recuperado de https://censos2017.inei.gob.pe/redatam/ 
 
-* Periodo: 
+* Avances: Es el resultado de la diferencia entre la cifra del 2017, o el mayor año, y la cifra del 2007, o el menor año. 
 
-
+  + < -25: La diferencia supera los 25 puntos porcentuales. Supone una importante mejora.
+  + -10 a -25: La diferencia oscila entre los 10 y 25 puntos porcentuales.Supone una mejora intermedia. 
+  + -10 a 0: La diferencia oscila entre los 0 y 10 puntos porcentuales.Supone ningún cambio o una leve mejora. 
+  + 0 a 10: La diferencia implica un leve retroceso de entre 1 y 10 puntos porcentuales. 
+  + 10 a 10: La diferencia implica un retroceso intermedio de entre 1 y 10 puntos porcentuales.
+  + > 25: La diferencia implica un importante retroceso, de - al menos - 25 puntos porcentuales.
 
 Column {.tabset}
 -------------------------------------
 
-### **sobre  AGUA EN LAS VIVIENDAS**
+### **Acceso a agua**
 
-```{r}
-ggarrange(agua2017, agua, 
-          labels = c(" ", " "),
-          ncol = 2)
-```
-
-
-### **Sobre ELECTRICIDAD EN LAS VIVIENDAS**
-
-```{r}
-ggarrange(elec2017, elec, 
-          labels = c(" ", " "),
-          ncol = 2)
-```
-
-### **Sobre VIVIENDAS ALQUILADAS**
-
-```{r}
-ggarrange(alqui2017, alqui, 
-          labels = c(" ", " "),
-          ncol = 2)
+```{r,fig.height = 5, fig.width = 8, fig.align = "center"}
+ggarrange(
+  agua2017, NULL,  agua,
+  nrow = 1, widths = c(1, 0.1, 1),
+  labels = c("", "", "")
+  )
 
 ```
 
 
-**CAMBIO EN VARIABLES CRITICAS DE HOGARES** 
+### **Acceso a servicios energéticos**
+
+```{r,fig.height = 5, fig.width = 8, fig.align = "center"}
+ggarrange(
+  elec2017, NULL,  elec,
+  nrow = 1, widths = c(1, 0.1, 1),
+  labels = c("", "", "")
+  )
+```
+
+### **Tenencia de vivienda**
+
+```{r,fig.height = 5, fig.width = 8, fig.align = "center"}
+ggarrange(
+  alqui2017, NULL,  alqui,
+  nrow = 1, widths = c(1, 0.1, 1),
+  labels = c("", "", "")
+  )
+
+```
+
+
+**CAMBIOS EN INDICADORES DE HOGAR** 
 =====================================
 
 
@@ -228,41 +321,63 @@ Column {data-width=180}
     
 ### **NOTAS**
 
-* Categorias:
+* Categorias a la actualidad (2017 o el mayor año):
+
+  + Aceptable: No más del 10% de la población cumple con la condición.
+  + Preocupante: Entre el 10% y 25% de la población cumple con la condición.
+  + Alarmante: Entre el 25% y 50% de la población cumple con la condición. 
+  + Crítico: Al menos el 50% de la población cumple con la condición.
 
 
-* Datos utilizados: 
+* Datos utilizados:
+
+  + **Acceso a Tecnologías de la Información y Comunicaciones**
+    - Perfil Sociodemográfico del Perú. Recuperado de https://www.inei.gob.pe/media/MenuRecursivo/publicaciones_digitales/Est/Lib1539/ 
+  + **Acceso a servicios básicos**
+    - Perú: Mapa de Necesidades Básicas Insatisfechas, 1993, 2007 y 2017. Recuperado de https://www.inei.gob.pe/media/MenuRecursivo/publicaciones_digitales/Est/Lib1588/
+  + **Acceso a vivienda adecuada** 
+    - Perú: Mapa de Necesidades Básicas Insatisfechas, 1993, 2007 y 2017. Recuperado de https://www.inei.gob.pe/media/MenuRecursivo/publicaciones_digitales/Est/Lib1588/
 
 
-* Periodo: 
+* Avances: Es el resultado de la diferencia entre la cifra del 2017, o el mayor año, y la cifra del 2007, o el menor año. 
 
-
+  + < -25: La diferencia supera los 25 puntos porcentuales. Supone una importante mejora.
+  + -10 a -25: La diferencia oscila entre los 10 y 25 puntos porcentuales.Supone una mejora intermedia. 
+  + -10 a 0: La diferencia oscila entre los 0 y 10 puntos porcentuales.Supone ningún cambio o una leve mejora. 
+  + 0 a 10: La diferencia implica un leve retroceso de entre 1 y 10 puntos porcentuales. 
+  + 10 a 10: La diferencia implica un retroceso intermedio de entre 1 y 10 puntos porcentuales.
+  + > 25: La diferencia implica un importante retroceso, de - al menos - 25 puntos porcentuales.
 
 Column {.tabset}
 -------------------------------------
 
-### **sobre TECNOLOGIAS DE COMUNICACIÓN**
+### **Acceso a Tecnologías de la Información y Comunicaciones**
 
-```{r}
-ggarrange(tic2017, tic, 
-          labels = c(" ", " "),
-          ncol = 2)
+```{r,fig.height = 5, fig.width = 8, fig.align = "center"}
+ggarrange(
+  tic2017, NULL,  tic,
+  nrow = 1, widths = c(1, 0.1, 1),
+  labels = c("", "", "")
+  )
 ```
 
 
-### **Sobre AUSENCIA ESCOLAR DE NIÑOS EN EL HOGAR**
+### **Acceso a servicios básicos**
 
-```{r}
-ggarrange(ninos2017, ninos, 
-          labels = c(" ", " "),
-          ncol = 2)
-
+```{r,fig.height = 5, fig.width = 8, fig.align = "center"}
+ggarrange(
+  servhig2017, NULL, servhig,
+  nrow = 1, widths = c(1, 0.1, 1),
+  labels = c("", "", "")
+  )
 ```
 
-### **Sobre HACINAMIENTO**
+### **Acceso a vivienda adecuada**
 
-```{r}
-ggarrange(haci2017, haci, 
-          labels = c(" ", " "),
-          ncol = 2)
+```{r,fig.height = 5, fig.width = 8, fig.align = "center"}
+ggarrange(
+  haci2017, NULL,haci,
+  nrow = 1, widths = c(1, 0.1, 1),
+  labels = c("", "", "")
+  )
 ```
