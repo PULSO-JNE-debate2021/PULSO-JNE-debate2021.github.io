@@ -1,6 +1,4 @@
-```{r}
-names(regdata)
-```
+
 
 carga
 ```{r}
@@ -94,7 +92,7 @@ pob=dataJNE[,c(1,varsToCat)]
 
 for (var in names(pob[,-1])){
     cortes=c(-100,-25,-10,0,10,25,100)
-    etis=c("< -25","-10 a -25","-10 a 0","10 a 0","10 a 25","> 25")
+    etis=c("Baja: 25 o más","Baja: 10 a 25","Baja: 10 a 0","Sube: 10 a 0","Sube: 10 a 25","Sube:  25 o más")
     pob[,var]=cut(pob[,var], breaks = cortes,
                   labels = etis,
                   include.lowest = T,
@@ -106,7 +104,6 @@ names(pob)[-1]=paste(names(pob)[-1],"cat",sep="_")
 dataJNE=cbind(dataJNE,pob[,-1])
 saveRDS(dataJNE,file="dataJNE.rds")
 ```
-
 
 
 

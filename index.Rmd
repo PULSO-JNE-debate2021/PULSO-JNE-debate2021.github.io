@@ -53,7 +53,7 @@ segu2017=base + geom_sf(aes(fill=Sin_seguro_de_salud_2017_cat))+
                                       data=debamap[debamap$Sin_seguro_de_salud_2017_cat=="Alarmante"|debamap$Sin_seguro_de_salud_2017_cat=="Crítico",],
                                       size = 2,
                                       fontface = 'bold')
-segu2017=segu2017 + labs(fill="Nivel")
+segu2017=segu2017 + labs(fill="Nivel Actual")
 
 info2017=base + geom_sf(aes(fill=Tasa_de_empleo_informal_2019_cat))+
                       geom_text_repel(mapping = aes(coords_x, coords_y, label = DEPARTAMEN),
@@ -61,7 +61,7 @@ info2017=base + geom_sf(aes(fill=Tasa_de_empleo_informal_2019_cat))+
                                                   debamap$Tasa_de_empleo_informal_2019_cat=="Crítico",],
                                       size = 2,
                                       fontface = 'bold')
-info2017=info2017 + labs(fill="Nivel")
+info2017=info2017 + labs(fill="Nivel Actual")
 
 
 analf2017=base + geom_sf(aes(fill=Analfabetismo_2017_cat)) +
@@ -70,7 +70,7 @@ analf2017=base + geom_sf(aes(fill=Analfabetismo_2017_cat)) +
                                                   debamap$Analfabetismo_2017_cat=="Crítico",],
                                       size = 2,
                                       fontface = 'bold')
-analf2017=analf2017 + labs(fill="Nivel")
+analf2017=analf2017 + labs(fill="Nivel Actual")
 
 
 agua2017=base + geom_sf(aes(fill=Sin_Agua_Red_publica_2017_cat))+
@@ -79,7 +79,7 @@ agua2017=base + geom_sf(aes(fill=Sin_Agua_Red_publica_2017_cat))+
                                                   debamap$Sin_Agua_Red_publica_2017_cat=="Crítico",],
                                       size = 2,
                                       fontface = 'bold')
-agua2017=agua2017 + labs(fill="Nivel")
+agua2017=agua2017 + labs(fill="Nivel Actual")
 
 
 elec2017=base + geom_sf(aes(fill=Sin_Alumbrado_electrico_por_red_publica_2017_cat))+
@@ -88,7 +88,7 @@ elec2017=base + geom_sf(aes(fill=Sin_Alumbrado_electrico_por_red_publica_2017_ca
                                                   debamap$Sin_Alumbrado_electrico_por_red_publica_2017_cat=="Crítico",],
                                       size = 2,
                                       fontface = 'bold')
-elec2017=elec2017 + labs(fill="Nivel")
+elec2017=elec2017 + labs(fill="Nivel Actual")
 
 
 alqui2017=base + geom_sf(aes(fill=Vivienda_alquilada_2017_cat))+
@@ -97,7 +97,7 @@ alqui2017=base + geom_sf(aes(fill=Vivienda_alquilada_2017_cat))+
                                                   debamap$Vivienda_alquilada_2017_cat=="Crítico",],
                                       size = 2,
                                       fontface = 'bold')
-alqui2017=alqui2017 + labs(fill="Nivel")
+alqui2017=alqui2017 + labs(fill="Nivel Actual")
 
 
 tic2017=base + geom_sf(aes(fill=Hogares_sin_TIC_2017_cat))+
@@ -106,7 +106,7 @@ tic2017=base + geom_sf(aes(fill=Hogares_sin_TIC_2017_cat))+
                                                   debamap$Hogares_sin_TIC_2017_cat=="Crítico",],
                                       size = 2,
                                       fontface = 'bold')
-tic2017=tic2017 + labs(fill="Nivel")
+tic2017=tic2017 + labs(fill="Nivel Actual")
 
 
 servhig2017=base + geom_sf(aes(fill=Hogares_con_viviendas_sin_servicios_higienicos_2017_cat))+
@@ -115,7 +115,7 @@ servhig2017=base + geom_sf(aes(fill=Hogares_con_viviendas_sin_servicios_higienic
                                                   debamap$Hogares_con_viviendas_sin_servicios_higienicos_2017_cat=="Crítico",],
                                       size = 2,
                                       fontface = 'bold')
-servhig2017=servhig2017 + labs(fill="Nivel")
+servhig2017=servhig2017 + labs(fill="Nivel Actual")
 
 
 haci2017=base + geom_sf(aes(fill=Hogares_con_viviendas_con_hacinamiento_2017_cat))+
@@ -124,7 +124,7 @@ haci2017=base + geom_sf(aes(fill=Hogares_con_viviendas_con_hacinamiento_2017_cat
                                                   debamap$Hogares_con_viviendas_con_hacinamiento_2017_cat=="Crítico",],
                                       size = 2,
                                       fontface = 'bold')
-haci2017=haci2017 + labs(fill="Nivel")
+haci2017=haci2017 + labs(fill="Nivel Actual")
 
 
 ```
@@ -163,32 +163,27 @@ haci=haci + labs(fill="Cambio en %")
 
 
 
+  
 
 **CAMBIOS EN INDICADORES SOCIALES** 
 =====================================
 
-
-Column {data-width=180}
+Column {data-width=120}
 -------------------------------------
     
-### **NOTAS**
+### **NIVEL ACTUAL** 
 
-* Niveles a la actualidad (2017 o el mayor año):
+Situación encontrada en el CENSO 2017, o luego, a nivel Regional.
 
-  + **Aceptable**: No más del 10% de la población cumple con la condición.
-  + **Preocupante**: Entre el 10% y 25% de la población cumple con la condición.
-  + **Alarmante**: Entre el 25% y 50% de la población cumple con la condición. 
-  + **Crítico**: Al menos el 50% de la población cumple con la condición.
+**Aceptable**: No más del 10% de la población ES AFECTADA.
 
-* Avances: Es el resultado de la diferencia entre la cifra del indel 2017, o el mayor año, y la cifra del 2007, o el menor año, en puntos porcentuales. 
+**Preocupante**: Entre el 10% y 25% de la población ES AFECTADA.
 
-  + **< -25**: La diferencia supera los 25 puntos porcentuales. Supone una importante mejora.
-  + **-10 a -25**: La diferencia oscila entre los 10 y 25 puntos porcentuales.Supone una mejora intermedia. 
-  + **-10 a 0**: La diferencia oscila entre los 0 y 10 puntos porcentuales.Supone ningún cambio o una leve mejora. 
-  + **0 a 10**: La diferencia implica un leve retroceso de entre 1 y 10 puntos porcentuales. 
-  + **10 a 25**: La diferencia implica un retroceso intermedio de entre 10 y 25 puntos porcentuales.
-  + **> 25**: La diferencia implica un importante retroceso, de - al menos - 25 puntos porcentuales.
-  
+**Alarmante**: Entre el 25% y 50% de la población ES AFECTADA. 
+
+**Crítico**: Al menos el 50% de la población ES AFECTADA.
+
+
 
 Column {.tabset}
 -------------------------------------
@@ -202,10 +197,11 @@ abajo="Elaborado por PULSO PUCP para la DNEF-JNE"
 ggarrange(
   segu2017, NULL,  segu,
   nrow = 1, widths = c(1, 0.1, 1),
-  labels = c("2017","" ,"Avances entre 2007- 2017"),hjust = 0,
-  label.x=c(0.4,0,0.3), font.label = list(size = 13, 
+  labels = c("¿A qué nivel se llegó el 2017?","" ,"¿Mejora del 2007-2017?"),hjust = 0,
+  label.x=c(0.3,0,0.3), font.label = list(size = 13, 
                                         face = "bold", 
-                                        color ="#1e325c")
+ 
+                                                                               color ="#1e325c")
   )%>%annotate_figure(top = text_grob(titulo,
                                       color = "#1e325c", 
                                       face = "bold",
@@ -228,8 +224,8 @@ abajo="Elaborado por PULSO PUCP para la DNEF-JNE"
 ggarrange(
   info2017, NULL,  info,
   nrow = 1, widths = c(1, 0.1, 1),
-  labels = c("2019","" ,"Avances entre 2008- 2019"),hjust = 0,
-  label.x=c(0.4,0,0.3), font.label = list(size = 13, 
+  labels = c("¿A qué nivel se llegó el 2019?","" ,"¿Mejora del 2008-2019?"),hjust = 0,
+  label.x=c(0.3,0,0.3), font.label = list(size = 13, 
                                         face = "bold", 
                                         color ="#1e325c")
   )%>%annotate_figure(top = text_grob(titulo,
@@ -255,8 +251,8 @@ abajo="Elaborado por PULSO PUCP para la DNEF-JNE"
 ggarrange(
   analf2017, NULL,  analf,
   nrow = 1, widths = c(1, 0.1, 1),
-   labels = c("2017","" ,"Avances entre 2007- 2017"),hjust = 0,
-  label.x=c(0.4,0,0.3), font.label = list(size = 13, 
+   labels = c("¿A qué nivel se llegó el 2017?","" ,"¿Mejora del 2007-2017?"),hjust = 0,
+  label.x=c(0.3,0,0.3), font.label = list(size = 13, 
                                         face = "bold", 
                                         color ="#1e325c")
   )%>%annotate_figure(top = text_grob(titulo,
@@ -271,41 +267,60 @@ ggarrange(
 )
 ```
 
-### **Datos utilizados**
+### Datos utilizados
   
-  + **Cobertura de los servicios de salud**
-    - 2007: Censos Nacionales 2007: XI de Población y VI de Vivienda. Recuperado de http://censos.inei.gob.pe/Censos2007/redatam/
-    - 2017: Censos Nacionales 2017: XII de Población, VII de Vivienda y III de Comunidades Indígenas. Recuperado de https://censos2017.inei.gob.pe/redatam/ 
-  + **Trabajo decente**
-    - Perú: Evolución de los Indicadores de Empleo e Ingreso por Departamento, 2007-2019. Recuperado de https://www.inei.gob.pe/media/MenuRecursivo/publicaciones_digitales/Est/Lib1790/libro.pdf
-  + **Alfabetización** 
-    - Tasa de analfabetismo de la población de 15 y más años, según ámbito geográfico. Recuperado de https://www.inei.gob.pe/media/MenuRecursivo/publicaciones_digitales/Est/Lib1758/cap05/cap05057.xlsx 
+**Cobertura de los servicios de salud**
+
+* 2007: Censos Nacionales 2007: XI de Población y VI de Vivienda. Recuperado de http://censos.inei.gob.pe/Censos2007/redatam/
+
+* 2017: Censos Nacionales 2017: XII de Población, VII de Vivienda y III de Comunidades Indígenas. Recuperado de https://censos2017.inei.gob.pe/redatam/ 
+
+**Trabajo decente**
+* Perú: Evolución de los Indicadores de Empleo e Ingreso por Departamento, 2007-2019. Recuperado de https://www.inei.gob.pe/media/MenuRecursivo/publicaciones_digitales/Est/Lib1790/libro.pdf
+
+**Alfabetización** 
+* Tasa de analfabetismo de la población de 15 y más años, según ámbito geográfico. Recuperado de https://www.inei.gob.pe/media/MenuRecursivo/publicaciones_digitales/Est/Lib1758/cap05/cap05057.xlsx 
+
+
+Column {data-width=120}
+-------------------------------------
+    
+### **CAMBIO EN %** 
+
+Diferencia porcentual entre ambos CENSOS (o cerca a ellos) a nivel Regional. 
+
+**Baja: 25 o más**: Mejor escenario de avance.
+
+**Baja: 10 a 25**: La disminución de esta situación es poca.
+
+**Baja: 10 a 0**: Las cifras indican mejore, pero puede no percibirse de manera efectiva. 
+
+**Sube: 10 a 0**: La situación empeora. 
+
+**Sube: 10 a 25**: La diferencia implica un retroceso notorio.
+
+**Sube:  25 o más**: Peor escenario de retroceso.
+
+
 
 **CAMBIOS EN INDICADORES DE VIVIENDA** 
 =====================================
 
-
-Column {data-width=180}
+Column {data-width=120}
 -------------------------------------
     
-### **NOTAS**
+### **NIVEL ACTUAL** 
 
+Situación encontrada en el CENSO 2017, o luego, a nivel Regional.
 
-* Niveles a la actualidad (2017 o el mayor año):
+**Aceptable**: No más del 10% de la población ES AFECTADA.
 
-  + **Aceptable**: No más del 10% de la población cumple con la condición.
-  + **Preocupante**: Entre el 10% y 25% de la población cumple con la condición.
-  + **Alarmante**: Entre el 25% y 50% de la población cumple con la condición. 
-  + **Crítico**: Al menos el 50% de la población cumple con la condición.
+**Preocupante**: Entre el 10% y 25% de la población ES AFECTADA.
 
-* Avances: Es el resultado de la diferencia entre la cifra del indel 2017, o el mayor año, y la cifra del 2007, o el menor año, en puntos porcentuales. 
+**Alarmante**: Entre el 25% y 50% de la población ES AFECTADA. 
 
-  + **< -25**: La diferencia supera los 25 puntos porcentuales. Supone una importante mejora.
-  + **-10 a -25**: La diferencia oscila entre los 10 y 25 puntos porcentuales.Supone una mejora intermedia. 
-  + **-10 a 0**: La diferencia oscila entre los 0 y 10 puntos porcentuales.Supone ningún cambio o una leve mejora. 
-  + **0 a 10**: La diferencia implica un leve retroceso de entre 1 y 10 puntos porcentuales. 
-  + **10 a 25**: La diferencia implica un retroceso intermedio de entre 10 y 25 puntos porcentuales.
-  + **> 25**: La diferencia implica un importante retroceso, de - al menos - 25 puntos porcentuales.
+**Crítico**: Al menos el 50% de la población ES AFECTADA.
+
 
 
 Column {.tabset}
@@ -320,8 +335,8 @@ abajo="Elaborado por PULSO PUCP para la DNEF-JNE"
 ggarrange(
   agua2017, NULL,  agua,
   nrow = 1, widths = c(1, 0.1, 1),
-   labels = c("2017","" ,"Avances entre 2007- 2017"),hjust = 0,
-  label.x=c(0.4,0,0.3), font.label = list(size = 13, 
+   labels = c("¿A qué nivel se llegó el 2017?","" ,"¿Mejora del 2007-2017?"),hjust = 0,
+  label.x=c(0.3,0,0.3), font.label = list(size = 13, 
                                         face = "bold", 
                                         color ="#1e325c")
   )%>%annotate_figure(top = text_grob(titulo,
@@ -335,6 +350,8 @@ ggarrange(
                #,fig.lab = "Figure 1", fig.lab.face = "bold"
 )
 ```
+
+
 
 
 ### **Acceso a servicios energéticos**
@@ -346,8 +363,8 @@ abajo="Elaborado por PULSO PUCP para la DNEF-JNE"
 ggarrange(
   elec2017, NULL,  elec,
   nrow = 1, widths = c(1, 0.1, 1),
-   labels = c("2017","" ,"Avances entre 2007- 2017"),hjust = 0,
-  label.x=c(0.4,0,0.3), font.label = list(size = 13, 
+   labels = c("¿A qué nivel se llegó el 2017?","" ,"¿Mejora del 2007-2017?"),hjust = 0,
+  label.x=c(0.3,0,0.3), font.label = list(size = 13, 
                                         face = "bold", 
                                         color ="#1e325c")
   )%>%annotate_figure(top = text_grob(titulo,
@@ -361,6 +378,8 @@ ggarrange(
                #,fig.lab = "Figure 1", fig.lab.face = "bold"
 )
 ```
+
+
 
 ### **Tenencia de vivienda**
 
@@ -371,8 +390,8 @@ abajo="Elaborado por PULSO PUCP para la DNEF-JNE"
 ggarrange(
   alqui2017, NULL,  alqui,
   nrow = 1, widths = c(1, 0.1, 1),
-   labels = c("2017","" ,"Avances entre 2007- 2017"),hjust = 0,
-  label.x=c(0.4,0,0.3), font.label = list(size = 13, 
+   labels = c("¿A qué nivel se llegó el 2017?","" ,"¿Mejora del 2007-2017?"),hjust = 0,
+  label.x=c(0.3,0,0.3), font.label = list(size = 13, 
                                         face = "bold", 
                                         color ="#1e325c")
   )%>%annotate_figure(top = text_grob(titulo,
@@ -387,39 +406,64 @@ ggarrange(
 )
 ```
 
-### **Datos utilizados**
-  + **Acceso a agua**
-    - Perfil Sociodemográfico del Perú. Recuperado de https://www.inei.gob.pe/media/MenuRecursivo/publicaciones_digitales/Est/Lib1539/
-  + **Acceso a servicios energéticos**
-    - Proporción de la población que tiene acceso a la electricidad. Recuperado de http://ods.inei.gob.pe/ods/objetivos-de-desarrollo-sostenible/energia-asequible-y-no-contaminante 
-  + **Tenencia de vivienda** 
-    - 2007: Censos Nacionales 2007: XI de Población y VI de Vivienda. Recuperado de http://censos.inei.gob.pe/Censos2007/redatam/
-    - 2017: Censos Nacionales 2017: XII de Población, VII de Vivienda y III de Comunidades Indígenas. Recuperado de https://censos2017.inei.gob.pe/redatam/ 
+
+### Datos utilizados
+  
+**Acceso a agua**
+
+* Perfil Sociodemográfico del Perú. Recuperado de https://www.inei.gob.pe/media/MenuRecursivo/publicaciones_digitales/Est/Lib1539/
+
+**Acceso a servicios energéticos**
+
+* Proporción de la población que tiene acceso a la electricidad. Recuperado de http://ods.inei.gob.pe/ods/objetivos-de-desarrollo-sostenible/energia-asequible-y-no-contaminante 
+
+
+**Tenencia de vivienda** 
+
+* 2007: Censos Nacionales 2007: XI de Población y VI de Vivienda. Recuperado de http://censos.inei.gob.pe/Censos2007/redatam/
+
+* 2017: Censos Nacionales 2017: XII de Población, VII de Vivienda y III de Comunidades Indígenas. Recuperado de https://censos2017.inei.gob.pe/redatam/ 
+
+
+Column {data-width=120}
+-------------------------------------
+    
+### **CAMBIO EN %** 
+
+Diferencia porcentual entre ambos CENSOS (o cerca a ellos) a nivel Regional. 
+
+**Baja: 25 o más**: Mejor escenario de avance.
+
+**Baja: 10 a 25**: La disminución de esta situación es poca.
+
+**Baja: 10 a 0**: Las cifras indican mejore, pero puede no percibirse de manera efectiva. 
+
+**Sube: 10 a 0**: La situación empeora. 
+
+**Sube: 10 a 25**: La diferencia implica un retroceso notorio.
+
+**Sube:  25 o más**: Peor escenario de retroceso.
+
 
 **CAMBIOS EN INDICADORES DE HOGAR** 
 =====================================
 
-
-Column {data-width=180}
+Column {data-width=120}
 -------------------------------------
     
-### **NOTAS**
+### **NIVEL ACTUAL** 
 
-* Niveles a la actualidad (2017 o el mayor año):
+Situación encontrada en el CENSO 2017, o luego, a nivel Regional.
 
-  + **Aceptable**: No más del 10% de la población cumple con la condición.
-  + **Preocupante**: Entre el 10% y 25% de la población cumple con la condición.
-  + **Alarmante**: Entre el 25% y 50% de la población cumple con la condición. 
-  + **Crítico**: Al menos el 50% de la población cumple con la condición.
+**Aceptable**: No más del 10% de la población ES AFECTADA.
 
-* Avances: Es el resultado de la diferencia entre la cifra del indel 2017, o el mayor año, y la cifra del 2007, o el menor año, en puntos porcentuales. 
+**Preocupante**: Entre el 10% y 25% de la población ES AFECTADA.
 
-  + **< -25**: La diferencia supera los 25 puntos porcentuales. Supone una importante mejora.
-  + **-10 a -25**: La diferencia oscila entre los 10 y 25 puntos porcentuales.Supone una mejora intermedia. 
-  + **-10 a 0**: La diferencia oscila entre los 0 y 10 puntos porcentuales.Supone ningún cambio o una leve mejora. 
-  + **0 a 10**: La diferencia implica un leve retroceso de entre 1 y 10 puntos porcentuales. 
-  + **10 a 25**: La diferencia implica un retroceso intermedio de entre 10 y 25 puntos porcentuales.
-  + **> 25**: La diferencia implica un importante retroceso, de - al menos - 25 puntos porcentuales.
+**Alarmante**: Entre el 25% y 50% de la población ES AFECTADA. 
+
+**Crítico**: Al menos el 50% de la población ES AFECTADA.
+
+
 
 Column {.tabset}
 -------------------------------------
@@ -433,8 +477,8 @@ abajo="Elaborado por PULSO PUCP para la DNEF-JNE"
 ggarrange(
   tic2017, NULL,  tic,
   nrow = 1, widths = c(1, 0.1, 1),
-   labels = c("2017","" ,"Avances entre 2007- 2017"),hjust = 0,
-  label.x=c(0.4,0,0.3), font.label = list(size = 13, 
+   labels = c("¿A qué nivel se llegó el 2017?","" ,"¿Mejora del 2007-2017?"),hjust = 0,
+  label.x=c(0.3,0,0.3), font.label = list(size = 13, 
                                         face = "bold", 
                                         color ="#1e325c")
   )%>%annotate_figure(top = text_grob(titulo,
@@ -448,6 +492,7 @@ ggarrange(
                #,fig.lab = "Figure 1", fig.lab.face = "bold"
 )
 ```
+
 
 
 ### **Acceso a servicios básicos**
@@ -459,8 +504,8 @@ abajo="Elaborado por PULSO PUCP para la DNEF-JNE"
 ggarrange(
   servhig2017, NULL, servhig,
   nrow = 1, widths = c(1, 0.1, 1),
-   labels = c("2017","" ,"Avances entre 2007- 2017"),hjust = 0,
-  label.x=c(0.4,0,0.3), font.label = list(size = 13, 
+   labels = c("¿A qué nivel se llegó el 2017?","" ,"¿Mejora del 2007-2017?"),hjust = 0,
+  label.x=c(0.3,0,0.3), font.label = list(size = 13, 
                                         face = "bold", 
                                         color ="#1e325c")
   )%>%annotate_figure(top = text_grob(titulo,
@@ -474,6 +519,8 @@ ggarrange(
                #,fig.lab = "Figure 1", fig.lab.face = "bold"
 )
 ```
+
+
 
 ### **Acceso a vivienda adecuada**
 
@@ -484,8 +531,8 @@ abajo="Elaborado por PULSO PUCP para la DNEF-JNE"
 ggarrange(
   haci2017, NULL,haci,
   nrow = 1, widths = c(1, 0.1, 1),
-   labels = c("2017","" ,"Avances entre 2007- 2017"),hjust = 0,
-  label.x=c(0.4,0,0.3), font.label = list(size = 13, 
+   labels = c("¿A qué nivel se llegó el 2017?","" ,"¿Mejora del 2007-2017?"),hjust = 0,
+  label.x=c(0.3,0,0.3), font.label = list(size = 13, 
                                         face = "bold", 
                                         color ="#1e325c")
   )%>%annotate_figure(top = text_grob(titulo,
@@ -500,11 +547,34 @@ ggarrange(
 )
 ```
 
-### **Datos utilizados**
+
+### Datos utilizados
   
-  + **Acceso a Tecnologías de la Información y Comunicaciones**
-    - Perfil Sociodemográfico del Perú. Recuperado de https://www.inei.gob.pe/media/MenuRecursivo/publicaciones_digitales/Est/Lib1539/ 
-  + **Acceso a servicios básicos**
-    - Perú: Mapa de Necesidades Básicas Insatisfechas, 1993, 2007 y 2017. Recuperado de https://www.inei.gob.pe/media/MenuRecursivo/publicaciones_digitales/Est/Lib1588/
-  + **Acceso a vivienda adecuada** 
-    - Perú: Mapa de Necesidades Básicas Insatisfechas, 1993, 2007 y 2017. Recuperado de https://www.inei.gob.pe/media/MenuRecursivo/publicaciones_digitales/Est/Lib1588/
+**Acceso a Tecnologías de la Información y Comunicaciones**
+* Perfil Sociodemográfico del Perú. Recuperado de https://www.inei.gob.pe/media/MenuRecursivo/publicaciones_digitales/Est/Lib1539/ 
+
+**Acceso a servicios básicos**
+* Perú: Mapa de Necesidades Básicas Insatisfechas, 1993, 2007 y 2017. Recuperado de https://www.inei.gob.pe/media/MenuRecursivo/publicaciones_digitales/Est/Lib1588/
+
+**Acceso a vivienda adecuada** 
+* Perú: Mapa de Necesidades Básicas Insatisfechas, 1993, 2007 y 2017. Recuperado de https://www.inei.gob.pe/media/MenuRecursivo/publicaciones_digitales/Est/Lib1588/
+
+
+Column {data-width=120}
+-------------------------------------
+    
+### **CAMBIO EN %** 
+
+Diferencia porcentual entre ambos CENSOS (o cerca a ellos) a nivel Regional. 
+
+**Baja: 25 o más**: Mejor escenario de avance.
+
+**Baja: 10 a 25**: La disminución de esta situación es poca.
+
+**Baja: 10 a 0**: Las cifras indican mejore, pero puede no percibirse de manera efectiva. 
+
+**Sube: 10 a 0**: La situación empeora. 
+
+**Sube: 10 a 25**: La diferencia implica un retroceso notorio.
+
+**Sube:  25 o más**: Peor escenario de retroceso.
