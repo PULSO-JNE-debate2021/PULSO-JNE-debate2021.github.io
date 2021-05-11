@@ -6,6 +6,7 @@ output:
     vertical_layout: fill
     logo: Webp.net-resizeimage (2).png
 ---
+
 <style>                     
 .navbar {
   background-color:#1e325c;
@@ -229,11 +230,9 @@ t <- list(color = 'MidnightBlue')
 
 PBIg2= PBIg %>% layout(title = "<b> Serie de tiempo: Producto Bruto Interno per cápita </b> <br> Miles de S/ año base de 2007" , font=t)
 PBIg2= PBIg2 %>% layout(legend = list(title=list(text='<b> Departamento </b>')))
-
-PBIg2
 ```
 
-**CAMBIOS EN INDICADORES SOCIALES** 
+**INDICADORES SOCIALES** 
 =====================================
 
 Column {data-width=120}
@@ -370,8 +369,7 @@ Diferencia porcentual entre ambos CENSOS (o cerca a ellos) a nivel Regional.
 **Sube:  25 o más**: Peor escenario de retroceso.
 
 
-
-**CAMBIOS EN INDICADORES DE VIVIENDA** 
+**INDICADORES DE VIVIENDA** 
 =====================================
 
 Column {data-width=120}
@@ -513,7 +511,7 @@ Diferencia porcentual entre ambos CENSOS (o cerca a ellos) a nivel Regional.
 **Sube:  25 o más**: Peor escenario de retroceso.
 
 
-**CAMBIOS EN INDICADORES DE HOGAR** 
+**INDICADORES DE HOGAR** 
 =====================================
 
 Column {data-width=120}
@@ -647,7 +645,7 @@ Diferencia porcentual entre ambos CENSOS (o cerca a ellos) a nivel Regional.
 
 **Sube:  25 o más**: Peor escenario de retroceso.
 
-**CAMBIOS EN INDICADORES ECONÓMICOS** 
+**INDICADORES ECONÓMICOS** 
 =====================================
 
 Column {data-width=120}
