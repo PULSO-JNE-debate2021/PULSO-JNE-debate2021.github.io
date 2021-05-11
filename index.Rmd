@@ -25,6 +25,8 @@ library(tidyverse)
 library(sf)
 library(ggrepel)
 library(repr)
+library(dygraphs)
+library(quantmod)
 debatable=readRDS("dataJNE.rds")
 debamap=read_sf("regiones.shp")
 debamap=merge(debamap,debatable,
@@ -130,7 +132,6 @@ haci2017=haci2017 + labs(fill="Nivel Actual")
 ```
 
 
-
 ```{r plotsCode_CAMBIOS, warning=FALSE, message=FALSE}
 segu=base + geom_sf(aes(fill=pob_sin_seguro_salud_cat))
 segu=segu + labs(fill ="Cambio en %")
@@ -162,8 +163,75 @@ haci=haci + labs(fill="Cambio en %")
 ```
 
 
+```{r,include=FALSE}
+library(readxl)
+library(lubridate)
+library(plotly)
 
-  
+
+#Gasto_de_capital_2$`Gobierno Regional` <- as.Date(as.character(Gasto_de_capital_2$`Gobierno Regional`), format = "%Y")
+#Gasto_de_capital_2$`Gobierno Regional` <- year(Gasto_de_capital_2$`Gobierno Regional`)
+
+#NorteGasto= dygraph(Gasto_de_capital_2[,c(1,23,19,14,7,13,3)])
+
+#CentroGasto= dygraph(Gasto_de_capital_2[,c(1,25,12,18,10,9,6,11)])
+
+#SurGasto= dygraph(Gasto_de_capital_2[,c(1,5,17,19,8,16,4,20)])
+
+#OrienteGasto= dygraph(Gasto_de_capital_2[,c(1,15,24,2,21)])
+
+#LimaGasto= dygraph(Gasto_de_capital_2[,c(1,26:27)]) 
+
+#Gasto = ggplot(IndicadoresEconomicos, aes(x=Fecha, y=Ejecución, group=`Gobierno Regional`)) + geom_line() 
+
+#Gasto2= Gasto + labs (fill="Gobierno Regional", title = "Serie de tiempo: Ejecución presupuestal", subtitle="Gasto de capital")
+
+#ggplotly(Gasto2)
+
+IndicadoresEconomicos <- read_excel("IndicadoresEconomicos.xlsx", 
+    sheet = "Hoja2")
+IndicadoresEconomicos$Fecha <- as.Date(as.character(IndicadoresEconomicos$Fecha), format = "%Y")
+IndicadoresEconomicos$Fecha <- year(IndicadoresEconomicos$Fecha)
+IndicadoresEconomicos$Ejecución=round(IndicadoresEconomicos$Ejecución, digits = 1 )
+
+Gasto= plot_ly(IndicadoresEconomicos, x = ~Fecha, y = ~Ejecución, type = 'scatter', color= ~Gore ,mode = 'lines')
+
+t <- list(color = 'MidnightBlue')
+
+Gasto2= Gasto %>% layout(title = "<b> Serie de tiempo: Gasto de capital </b>" , font=t)
+Gasto2= Gasto2 %>% layout(legend = list(title=list(text='<b> Gobierno Regional </b>')))
+```
+
+```{r,include=FALSE}
+#PBI <- read_excel("Gasto de capital 2.xlsx", sheet = "PBI")
+
+#PBI$Departamento <- as.Date(as.character(PBI$Departamento), format = "%Y")
+#PBI$Departamento <- year(PBI$Departamento)
+
+#NortePBI= dygraph(Gasto_de_capital_2[,c(1,23,19,14,7,13,3)])
+
+#CentroPBI= dygraph(Gasto_de_capital_2[,c(1,12,18,10,9,6,11)])
+
+#SurPBI= dygraph(Gasto_de_capital_2[,c(1,5,17,19,8,16,4,20)])
+
+#OrientePBI= dygraph(Gasto_de_capital_2[,c(1,15,24,2,21)])
+
+#LimaPBI= dygraph(Gasto_de_capital_2[,c(1,25)]) 
+
+PBI <- read_excel("IndicadoresEconomicos.xlsx", 
+    sheet = "PBI")
+PBI$Fecha <- as.Date(as.character(PBI$Fecha), format = "%Y")
+PBI$Fecha <- year(PBI$Fecha)
+
+PBIg= plot_ly(PBI, x = ~Fecha, y = ~PBI, type = 'scatter', color= ~Departamento ,mode = 'lines')
+
+t <- list(color = 'MidnightBlue')
+
+PBIg2= PBIg %>% layout(title = "<b> Serie de tiempo: Producto Bruto Interno per cápita </b> <br> Miles de S/ año base de 2007" , font=t)
+PBIg2= PBIg2 %>% layout(legend = list(title=list(text='<b> Departamento </b>')))
+
+PBIg2
+```
 
 **CAMBIOS EN INDICADORES SOCIALES** 
 =====================================
@@ -578,3 +646,51 @@ Diferencia porcentual entre ambos CENSOS (o cerca a ellos) a nivel Regional.
 **Sube: 10 a 25**: La diferencia implica un retroceso notorio.
 
 **Sube:  25 o más**: Peor escenario de retroceso.
+
+**CAMBIOS EN INDICADORES ECONÓMICOS** 
+=====================================
+
+Column {data-width=120}
+-------------------------------------
+    
+### **Gasto de capital** 
+
+Erogaciones destinadas a la adquisición o producción de activos tangibles e intangibles y a inversiones financieras en la entidad pública, que incrementan el activo del Sector Público y sirven como instrumentos para la producción de bienes y servicios.
+
+Recuperado de https://www.mef.gob.pe/es/glosario-sp-5902
+
+Column {.tabset}
+-------------------------------------
+
+### **Ejecución Presupuestal**
+
+```{r}
+Gasto2 
+```
+
+### **PBI per cápita**
+
+```{r}
+PBIg2
+```
+
+### Datos utilizados
+  
+**Ejecución presupuestal**
+
+* Glosario de Presupuesto Público. Recuperado de https://www.inei.gob.pe/media/MenuRecursivo/publicaciones_digitales/Est/Lib1539/ 
+
+**PBI per cápita**
+
+* PBI departamental. Recuperado de https://www.inei.gob.pe/media/MenuRecursivo/publicaciones_digitales/Est/Lib1759/ 
+* Conoce los conceptos Basicos para comprender la economia del país. Recuperado de https://www.mef.gob.pe/en/?id=61:conoce-los-conceptos-basicos-para-comprender-la-economia-del-pais&option=com_content&language=en-GB&view=article&lang=en-GB
+
+
+Column {data-width=120}
+-------------------------------------
+    
+### **PIB nominal versus PIB real** 
+
+Se debe tener en cuenta que la producción se mide en términos monetarios, por esto, la inflación puede hacer que la medida nominal del PIB sea mayor de un año a otro y que sin embargo el PIB real no haya variado. Para solucionar este problema se calcula el PIB real deflactando el PIB nominal a través de un índice de precios, más concretamente, se utiliza el deflactor del PIB, que es un índice que incluye a todos los bienes producidos. 
+
+Recuperado de https://www.mef.gob.pe/en/?id=61:conoce-los-conceptos-basicos-para-comprender-la-economia-del-pais&option=com_content&language=en-GB&view=article&lang=en-GB
